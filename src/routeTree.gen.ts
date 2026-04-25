@@ -13,6 +13,10 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppStudentIndexRouteImport } from './routes/app.student.index'
+import { Route as AppStudentResultsRouteImport } from './routes/app.student.results'
+import { Route as AppStudentParentsRouteImport } from './routes/app.student.parents'
+import { Route as AppStudentCoursesRouteImport } from './routes/app.student.courses'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -34,17 +38,45 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppStudentIndexRoute = AppStudentIndexRouteImport.update({
+  id: '/student/',
+  path: '/student/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStudentResultsRoute = AppStudentResultsRouteImport.update({
+  id: '/student/results',
+  path: '/student/results',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStudentParentsRoute = AppStudentParentsRouteImport.update({
+  id: '/student/parents',
+  path: '/student/parents',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStudentCoursesRoute = AppStudentCoursesRouteImport.update({
+  id: '/student/courses',
+  path: '/student/courses',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/app/': typeof AppIndexRoute
+  '/app/student/courses': typeof AppStudentCoursesRoute
+  '/app/student/parents': typeof AppStudentParentsRoute
+  '/app/student/results': typeof AppStudentResultsRoute
+  '/app/student/': typeof AppStudentIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/app': typeof AppIndexRoute
+  '/app/student/courses': typeof AppStudentCoursesRoute
+  '/app/student/parents': typeof AppStudentParentsRoute
+  '/app/student/results': typeof AppStudentResultsRoute
+  '/app/student': typeof AppStudentIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -52,13 +84,41 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/app/': typeof AppIndexRoute
+  '/app/student/courses': typeof AppStudentCoursesRoute
+  '/app/student/parents': typeof AppStudentParentsRoute
+  '/app/student/results': typeof AppStudentResultsRoute
+  '/app/student/': typeof AppStudentIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/app' | '/auth' | '/app/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/'
+    | '/app/student/courses'
+    | '/app/student/parents'
+    | '/app/student/results'
+    | '/app/student/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app'
-  id: '__root__' | '/' | '/app' | '/auth' | '/app/'
+  to:
+    | '/'
+    | '/auth'
+    | '/app'
+    | '/app/student/courses'
+    | '/app/student/parents'
+    | '/app/student/results'
+    | '/app/student'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/auth'
+    | '/app/'
+    | '/app/student/courses'
+    | '/app/student/parents'
+    | '/app/student/results'
+    | '/app/student/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -97,15 +157,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/student/': {
+      id: '/app/student/'
+      path: '/student'
+      fullPath: '/app/student/'
+      preLoaderRoute: typeof AppStudentIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/student/results': {
+      id: '/app/student/results'
+      path: '/student/results'
+      fullPath: '/app/student/results'
+      preLoaderRoute: typeof AppStudentResultsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/student/parents': {
+      id: '/app/student/parents'
+      path: '/student/parents'
+      fullPath: '/app/student/parents'
+      preLoaderRoute: typeof AppStudentParentsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/student/courses': {
+      id: '/app/student/courses'
+      path: '/student/courses'
+      fullPath: '/app/student/courses'
+      preLoaderRoute: typeof AppStudentCoursesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
+  AppStudentCoursesRoute: typeof AppStudentCoursesRoute
+  AppStudentParentsRoute: typeof AppStudentParentsRoute
+  AppStudentResultsRoute: typeof AppStudentResultsRoute
+  AppStudentIndexRoute: typeof AppStudentIndexRoute
 }
 
 const AppRouteChildren: AppRouteChildren = {
   AppIndexRoute: AppIndexRoute,
+  AppStudentCoursesRoute: AppStudentCoursesRoute,
+  AppStudentParentsRoute: AppStudentParentsRoute,
+  AppStudentResultsRoute: AppStudentResultsRoute,
+  AppStudentIndexRoute: AppStudentIndexRoute,
 }
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
