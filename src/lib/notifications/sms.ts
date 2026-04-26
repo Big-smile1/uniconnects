@@ -37,7 +37,7 @@ export async function dispatchSms(to: string, message: string): Promise<SmsDispa
 
   /* === REAL TERMII CODE (uncomment + add secrets when ready) ===
   const apiKey = process.env.TERMII_API_KEY;
-  const sender = process.env.TERMII_SENDER_ID || "EduLink";
+  const sender = process.env.TERMII_SENDER_ID || "MTU";
   if (!apiKey) {
     return { status: "failed", providerResponse: { error: "TERMII_API_KEY missing" } };
   }
