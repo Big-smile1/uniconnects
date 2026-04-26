@@ -133,9 +133,19 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     password: "",
     phone: "",
     matricNumber: "",
+    departmentId: "",
     role: "student" as AppRole,
   });
+  const [departments, setDepartments] = useState<Department[]>([]);
   const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    void supabase
+      .from("departments")
+      .select("id, code, name")
+      .order("name")
+      .then(({ data }) => setDepartments(data ?? []));
+  }, []);
 
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) => setForm((s) => ({ ...s, [k]: v }));
 
@@ -156,6 +166,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
           full_name: parsed.data.fullName,
           phone: parsed.data.phone || null,
           matric_number: parsed.data.matricNumber || null,
+          department_id: parsed.data.departmentId,
           role: parsed.data.role,
         },
       },
@@ -166,7 +177,6 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
       return;
     }
     toast.success(user?.email_confirmed_at || user?.confirmed_at ? "Account created — signing you in…" : "Account created!");
-    // With auto-confirm enabled the user is logged in automatically; the AuthProvider will redirect.
     if (!user) onDone();
   };
 
@@ -193,9 +203,32 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
       {form.role === "student" && (
         <div className="space-y-2">
           <Label htmlFor="su-matric">Matric number <span className="text-muted-foreground">(optional now)</span></Label>
-          <Input id="su-matric" value={form.matricNumber} onChange={(e) => set("matricNumber", e.target.value.toUpperCase())} placeholder="CSC/2021/123" />
+          <Input id="su-matric" value={form.matricNumber} onChange={(e) => set("matricNumber", e.target.value.toUpperCase())} placeholder="MTU/CSC/21/0001" />
         </div>
       )}
+
+      <div className="space-y-2">
+        <Label htmlFor="su-department">Department</Label>
+        <Select value={form.departmentId} onValueChange={(v) => set("departmentId", v)}>
+          <SelectTrigger id="su-department">
+            <SelectValue placeholder="Select your department" />
+          </SelectTrigger>
+          <SelectContent>
+            {departments.length === 0 ? (
+              <div className="px-3 py-2 text-sm text-muted-foreground">Loading departments…</div>
+            ) : (
+              departments.map((d) => (
+                <SelectItem key={d.id} value={d.id}>
+                  {d.name} ({d.code})
+                </SelectItem>
+              ))
+            )}
+          </SelectContent>
+        </Select>
+        {form.role === "student" && (
+          <p className="text-xs text-muted-foreground">You'll start at 100 level by default — your faculty will update this each session.</p>
+        )}
+      </div>
 
       <div className="space-y-2">
         <Label htmlFor="su-email">Email</Label>
