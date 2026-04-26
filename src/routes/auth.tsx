@@ -13,6 +13,8 @@ import { Logo } from "@/components/brand/Logo";
 import { toast } from "sonner";
 import { Loader2, ArrowLeft } from "lucide-react";
 
+type Department = { id: string; code: string; name: string };
+
 const searchSchema = z.object({
   tab: z.enum(["signin", "signup"]).optional(),
   redirect: z.string().optional(),
