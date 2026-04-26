@@ -46,6 +46,12 @@ export const Route = createRootRoute({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Mountain Top University — Smart Student Portal" },
+      { name: "description", content: "a place where you can check your result with ease" },
+      { property: "og:description", content: "a place where you can check your result with ease" },
+      { name: "twitter:description", content: "a place where you can check your result with ease" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b12b8006-6229-4767-9cf2-39676f2727ee" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b12b8006-6229-4767-9cf2-39676f2727ee" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
