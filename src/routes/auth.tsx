@@ -32,6 +32,7 @@ const signupSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters").max(72),
   phone: z.string().trim().max(20).optional().or(z.literal("")),
   matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
+  departmentId: z.string().uuid("Please choose your department"),
   role: z.enum(["student", "lecturer", "parent", "admin"]),
 });
 
