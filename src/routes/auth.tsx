@@ -46,7 +46,8 @@ function AuthPage() {
 
   useEffect(() => {
     if (!loading && session && role) {
-      const target = search.redirect || dashboardPathFor(role);
+      // If a specific deep link was requested, honour it; otherwise show the welcome page.
+      const target = search.redirect || "/welcome";
       void navigate({ to: target });
     }
   }, [session, role, loading, navigate, search.redirect]);
