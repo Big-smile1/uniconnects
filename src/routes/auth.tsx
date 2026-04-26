@@ -20,7 +20,7 @@ const searchSchema = z.object({
 
 export const Route = createFileRoute("/auth")({
   validateSearch: (search) => searchSchema.parse(search),
-  head: () => ({ meta: [{ title: "Sign in — EduLink Nigeria" }] }),
+  head: () => ({ meta: [{ title: "Sign in — Mountain Top University" }] }),
   component: AuthPage,
 });
 
@@ -76,7 +76,7 @@ function AuthPage() {
           </Tabs>
         </Card>
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Lecturer and admin accounts are normally provisioned by your university's ICT unit.
+          Lecturer and admin accounts are normally provisioned by the Mountain Top University ICT unit.
         </p>
       </div>
     </div>

@@ -22,7 +22,7 @@ import {
 export const Route = createFileRoute("/welcome")({
   head: () => ({
     meta: [
-      { title: "Welcome — EduLink Nigeria" },
+      { title: "Welcome — Mountain Top University" },
       { name: "description", content: "Your academic journey continues. Aim higher today." },
     ],
   }),

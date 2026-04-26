@@ -18,11 +18,11 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "EduLink Nigeria — Results Delivered to Every Parent" },
+      { title: "Mountain Top University — Results Delivered to Every Parent" },
       {
         name: "description",
         content:
-          "A smart university portal for Nigerian schools. Lecturers upload results, admins approve, and parents are notified automatically by SMS and email.",
+          "Mountain Top University's smart student portal. Lecturers upload results, admins approve, and parents are notified automatically by SMS and email.",
       },
     ],
   }),
@@ -75,13 +75,13 @@ function Hero() {
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-gold-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-gold" />
-            Built for Nigerian universities
+            Mountain Top University · Empowered to Excel
           </span>
           <h1 className="mt-6 text-balance font-serif text-5xl font-semibold leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             Every result, in every parent's hand.
           </h1>
           <p className="mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-            EduLink Nigeria connects students, lecturers, admins and{" "}
+            The Mountain Top University portal connects students, lecturers, admins and{" "}
             <strong className="text-foreground">parents</strong> in one portal. When results are
             approved, parents receive them automatically — by SMS and email — even if they've never
             opened a portal in their life.
@@ -245,7 +245,7 @@ function Features() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl">
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-gold-foreground">Features</span>
-          <h2 className="mt-3 font-serif text-4xl font-semibold tracking-tight">Everything a Nigerian university needs</h2>
+          <h2 className="mt-3 font-serif text-4xl font-semibold tracking-tight">Everything Mountain Top University needs</h2>
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((f) => (
@@ -293,7 +293,7 @@ function SiteFooter() {
     <footer id="contact" className="bg-background py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 text-sm text-muted-foreground sm:flex-row sm:px-6 lg:px-8">
         <Logo />
-        <div>© {new Date().getFullYear()} EduLink Nigeria. Built for Nigerian universities.</div>
+        <div>© {new Date().getFullYear()} Mountain Top University. Empowered to Excel.</div>
       </div>
     </footer>
   );

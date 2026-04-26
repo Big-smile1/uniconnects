@@ -31,14 +31,14 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "EduLink Nigeria — Smart University Portal" },
+      { title: "Mountain Top University — Smart Student Portal" },
       {
         name: "description",
         content:
-          "EduLink Nigeria is a smart student portal that automatically delivers semester results to parents and guardians via email and SMS. Built for Nigerian universities.",
+          "Mountain Top University's smart student portal automatically delivers semester results to parents and guardians via email and SMS.",
       },
-      { name: "author", content: "EduLink Nigeria" },
-      { property: "og:title", content: "EduLink Nigeria — Smart University Portal" },
+      { name: "author", content: "Mountain Top University" },
+      { property: "og:title", content: "Mountain Top University — Smart Student Portal" },
       {
         property: "og:description",
         content:
