@@ -195,7 +195,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
           full_name: parsed.data.fullName,
           phone: parsed.data.phone || null,
           matric_number: parsed.data.matricNumber || null,
-          department_id: parsed.data.departmentId,
+          department_id: parsed.data.departmentId || null,
           role: parsed.data.role,
         },
       },
@@ -209,7 +209,8 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     if (!user) onDone();
   };
 
-  const submitDisabled = busy || deptLoading || !!deptError || departments.length === 0;
+  const departmentRequired = form.role === "student" || form.role === "lecturer";
+  const submitDisabled = busy || (departmentRequired && (deptLoading || !!deptError || departments.length === 0));
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
