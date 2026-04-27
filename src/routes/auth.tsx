@@ -137,14 +137,32 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     role: "student" as AppRole,
   });
   const [departments, setDepartments] = useState<Department[]>([]);
+  const [deptLoading, setDeptLoading] = useState(true);
+  const [deptError, setDeptError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  useEffect(() => {
-    void supabase
+  const loadDepartments = async () => {
+    setDeptLoading(true);
+    setDeptError(null);
+    const { data, error } = await supabase
       .from("departments")
       .select("id, code, name")
-      .order("name")
-      .then(({ data }) => setDepartments(data ?? []));
+      .order("name");
+    setDeptLoading(false);
+    if (error) {
+      setDeptError(error.message);
+      return;
+    }
+    if (!data || data.length === 0) {
+      setDeptError("No departments are available right now.");
+      setDepartments([]);
+      return;
+    }
+    setDepartments(data);
+  };
+
+  useEffect(() => {
+    void loadDepartments();
   }, []);
 
   const set = <K extends keyof typeof form>(k: K, v: (typeof form)[K]) => setForm((s) => ({ ...s, [k]: v }));
@@ -180,6 +198,8 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     if (!user) onDone();
   };
 
+  const submitDisabled = busy || deptLoading || !!deptError || departments.length === 0;
+
   return (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="space-y-2">
@@ -209,23 +229,43 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
 
       <div className="space-y-2">
         <Label htmlFor="su-department">Department</Label>
-        <Select value={form.departmentId} onValueChange={(v) => set("departmentId", v)}>
+        <Select
+          value={form.departmentId}
+          onValueChange={(v) => set("departmentId", v)}
+          disabled={deptLoading || !!deptError || departments.length === 0}
+        >
           <SelectTrigger id="su-department">
-            <SelectValue placeholder="Select your department" />
+            <SelectValue
+              placeholder={
+                deptLoading
+                  ? "Loading departments…"
+                  : deptError
+                    ? "Departments unavailable"
+                    : "Select your department"
+              }
+            />
           </SelectTrigger>
           <SelectContent>
-            {departments.length === 0 ? (
-              <div className="px-3 py-2 text-sm text-muted-foreground">Loading departments…</div>
-            ) : (
-              departments.map((d) => (
-                <SelectItem key={d.id} value={d.id}>
-                  {d.name} ({d.code})
-                </SelectItem>
-              ))
-            )}
+            {departments.map((d) => (
+              <SelectItem key={d.id} value={d.id}>
+                {d.name} ({d.code})
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
-        {form.role === "student" && (
+        {deptError && (
+          <div className="flex items-center justify-between rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+            <span>Couldn't load departments. {deptError}</span>
+            <button
+              type="button"
+              onClick={() => void loadDepartments()}
+              className="font-medium underline-offset-2 hover:underline"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+        {!deptError && form.role === "student" && (
           <p className="text-xs text-muted-foreground">You'll start at 100 level by default — your faculty will update this each session.</p>
         )}
       </div>
@@ -245,7 +285,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
         <Input id="su-password" type="password" value={form.password} onChange={(e) => set("password", e.target.value)} required minLength={8} autoComplete="new-password" />
       </div>
 
-      <Button type="submit" className="w-full" size="lg" disabled={busy}>
+      <Button type="submit" className="w-full" size="lg" disabled={submitDisabled}>
         {busy && <Loader2 className="h-4 w-4 animate-spin" />}
         Create account
       </Button>
