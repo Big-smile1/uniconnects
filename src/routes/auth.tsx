@@ -239,48 +239,50 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
         </div>
       )}
 
-      <div className="space-y-2">
-        <Label htmlFor="su-department">Department</Label>
-        <Select
-          value={form.departmentId}
-          onValueChange={(v) => set("departmentId", v)}
-          disabled={deptLoading || !!deptError || departments.length === 0}
-        >
-          <SelectTrigger id="su-department">
-            <SelectValue
-              placeholder={
-                deptLoading
-                  ? "Loading departments…"
-                  : deptError
-                    ? "Departments unavailable"
-                    : "Select your department"
-              }
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {departments.map((d) => (
-              <SelectItem key={d.id} value={d.id}>
-                {d.name} ({d.code})
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {deptError && (
-          <div className="flex items-center justify-between rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
-            <span>Couldn't load departments. {deptError}</span>
-            <button
-              type="button"
-              onClick={() => void loadDepartments()}
-              className="font-medium underline-offset-2 hover:underline"
-            >
-              Retry
-            </button>
-          </div>
-        )}
-        {!deptError && form.role === "student" && (
-          <p className="text-xs text-muted-foreground">You'll start at 100 level by default — your faculty will update this each session.</p>
-        )}
-      </div>
+      {departmentRequired && (
+        <div className="space-y-2">
+          <Label htmlFor="su-department">Department</Label>
+          <Select
+            value={form.departmentId}
+            onValueChange={(v) => set("departmentId", v)}
+            disabled={deptLoading || !!deptError || departments.length === 0}
+          >
+            <SelectTrigger id="su-department">
+              <SelectValue
+                placeholder={
+                  deptLoading
+                    ? "Loading departments…"
+                    : deptError
+                      ? "Departments unavailable"
+                      : "Select your department"
+                }
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {departments.map((d) => (
+                <SelectItem key={d.id} value={d.id}>
+                  {d.name} ({d.code})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {deptError && (
+            <div className="flex items-center justify-between rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+              <span>Couldn't load departments. {deptError}</span>
+              <button
+                type="button"
+                onClick={() => void loadDepartments()}
+                className="font-medium underline-offset-2 hover:underline"
+              >
+                Retry
+              </button>
+            </div>
+          )}
+          {!deptError && form.role === "student" && (
+            <p className="text-xs text-muted-foreground">You'll start at 100 level by default — your faculty will update this each session.</p>
+          )}
+        </div>
+      )}
 
       <div className="space-y-2">
         <Label htmlFor="su-email">Email</Label>
