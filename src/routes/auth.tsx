@@ -26,15 +26,26 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-const signupSchema = z.object({
-  fullName: z.string().trim().min(2, "Please enter your full name").max(120),
-  email: z.string().trim().email("Invalid email").max(255),
-  password: z.string().min(8, "Password must be at least 8 characters").max(72),
-  phone: z.string().trim().max(20).optional().or(z.literal("")),
-  matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
-  departmentId: z.string().uuid("Please choose your department"),
-  role: z.enum(["student", "lecturer", "parent", "admin"]),
-});
+const signupSchema = z
+  .object({
+    fullName: z.string().trim().min(2, "Please enter your full name").max(120),
+    email: z.string().trim().email("Invalid email").max(255),
+    password: z.string().min(8, "Password must be at least 8 characters").max(72),
+    phone: z.string().trim().max(20).optional().or(z.literal("")),
+    matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
+    departmentId: z.string().uuid().optional().or(z.literal("")),
+    role: z.enum(["student", "lecturer", "parent", "admin"]),
+  })
+  .refine(
+    (data) => {
+      // Department is only required for students and lecturers
+      if (data.role === "student" || data.role === "lecturer") {
+        return !!data.departmentId && data.departmentId.length > 0;
+      }
+      return true;
+    },
+    { message: "Please choose your department", path: ["departmentId"] },
+  );
 
 const signinSchema = z.object({
   email: z.string().trim().email("Invalid email"),
@@ -184,7 +195,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
           full_name: parsed.data.fullName,
           phone: parsed.data.phone || null,
           matric_number: parsed.data.matricNumber || null,
-          department_id: parsed.data.departmentId,
+          department_id: parsed.data.departmentId || null,
           role: parsed.data.role,
         },
       },
@@ -198,7 +209,8 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     if (!user) onDone();
   };
 
-  const submitDisabled = busy || deptLoading || !!deptError || departments.length === 0;
+  const departmentRequired = form.role === "student" || form.role === "lecturer";
+  const submitDisabled = busy || (departmentRequired && (deptLoading || !!deptError || departments.length === 0));
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
@@ -227,48 +239,50 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
         </div>
       )}
 
-      <div className="space-y-2">
-        <Label htmlFor="su-department">Department</Label>
-        <Select
-          value={form.departmentId}
-          onValueChange={(v) => set("departmentId", v)}
-          disabled={deptLoading || !!deptError || departments.length === 0}
-        >
-          <SelectTrigger id="su-department">
-            <SelectValue
-              placeholder={
-                deptLoading
-                  ? "Loading departments…"
-                  : deptError
-                    ? "Departments unavailable"
-                    : "Select your department"
-              }
-            />
-          </SelectTrigger>
-          <SelectContent>
-            {departments.map((d) => (
-              <SelectItem key={d.id} value={d.id}>
-                {d.name} ({d.code})
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        {deptError && (
-          <div className="flex items-center justify-between rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
-            <span>Couldn't load departments. {deptError}</span>
-            <button
-              type="button"
-              onClick={() => void loadDepartments()}
-              className="font-medium underline-offset-2 hover:underline"
-            >
-              Retry
-            </button>
-          </div>
-        )}
-        {!deptError && form.role === "student" && (
-          <p className="text-xs text-muted-foreground">You'll start at 100 level by default — your faculty will update this each session.</p>
-        )}
-      </div>
+      {departmentRequired && (
+        <div className="space-y-2">
+          <Label htmlFor="su-department">Department</Label>
+          <Select
+            value={form.departmentId}
+            onValueChange={(v) => set("departmentId", v)}
+            disabled={deptLoading || !!deptError || departments.length === 0}
+          >
+            <SelectTrigger id="su-department">
+              <SelectValue
+                placeholder={
+                  deptLoading
+                    ? "Loading departments…"
+                    : deptError
+                      ? "Departments unavailable"
+                      : "Select your department"
+                }
+              />
+            </SelectTrigger>
+            <SelectContent>
+              {departments.map((d) => (
+                <SelectItem key={d.id} value={d.id}>
+                  {d.name} ({d.code})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {deptError && (
+            <div className="flex items-center justify-between rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+              <span>Couldn't load departments. {deptError}</span>
+              <button
+                type="button"
+                onClick={() => void loadDepartments()}
+                className="font-medium underline-offset-2 hover:underline"
+              >
+                Retry
+              </button>
+            </div>
+          )}
+          {!deptError && form.role === "student" && (
+            <p className="text-xs text-muted-foreground">You'll start at 100 level by default — your faculty will update this each session.</p>
+          )}
+        </div>
+      )}
 
       <div className="space-y-2">
         <Label htmlFor="su-email">Email</Label>
