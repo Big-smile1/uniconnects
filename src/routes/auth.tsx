@@ -26,15 +26,26 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
-const signupSchema = z.object({
-  fullName: z.string().trim().min(2, "Please enter your full name").max(120),
-  email: z.string().trim().email("Invalid email").max(255),
-  password: z.string().min(8, "Password must be at least 8 characters").max(72),
-  phone: z.string().trim().max(20).optional().or(z.literal("")),
-  matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
-  departmentId: z.string().uuid("Please choose your department"),
-  role: z.enum(["student", "lecturer", "parent", "admin"]),
-});
+const signupSchema = z
+  .object({
+    fullName: z.string().trim().min(2, "Please enter your full name").max(120),
+    email: z.string().trim().email("Invalid email").max(255),
+    password: z.string().min(8, "Password must be at least 8 characters").max(72),
+    phone: z.string().trim().max(20).optional().or(z.literal("")),
+    matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
+    departmentId: z.string().uuid().optional().or(z.literal("")),
+    role: z.enum(["student", "lecturer", "parent", "admin"]),
+  })
+  .refine(
+    (data) => {
+      // Department is only required for students and lecturers
+      if (data.role === "student" || data.role === "lecturer") {
+        return !!data.departmentId && data.departmentId.length > 0;
+      }
+      return true;
+    },
+    { message: "Please choose your department", path: ["departmentId"] },
+  );
 
 const signinSchema = z.object({
   email: z.string().trim().email("Invalid email"),
