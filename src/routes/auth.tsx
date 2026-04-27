@@ -285,7 +285,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
         <Input id="su-password" type="password" value={form.password} onChange={(e) => set("password", e.target.value)} required minLength={8} autoComplete="new-password" />
       </div>
 
-      <Button type="submit" className="w-full" size="lg" disabled={busy}>
+      <Button type="submit" className="w-full" size="lg" disabled={submitDisabled}>
         {busy && <Loader2 className="h-4 w-4 animate-spin" />}
         Create account
       </Button>
