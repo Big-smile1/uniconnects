@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { useAuth, type AppRole } from "@/lib/auth";
+import { useAuth, dashboardPathFor, type AppRole } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -59,9 +59,9 @@ function AuthPage() {
   const [tab, setTab] = useState<"signin" | "signup">(search.tab ?? "signin");
 
   useEffect(() => {
-    if (!loading && session && role) {
-      // If a specific deep link was requested, honour it; otherwise show the welcome page.
-      const target = search.redirect || "/welcome";
+    if (!loading && session) {
+      // Honour deep link if provided, otherwise go to the role-specific dashboard.
+      const target = search.redirect || dashboardPathFor(role);
       void navigate({ to: target });
     }
   }, [session, role, loading, navigate, search.redirect]);
