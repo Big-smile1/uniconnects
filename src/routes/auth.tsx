@@ -59,9 +59,9 @@ function AuthPage() {
   const [tab, setTab] = useState<"signin" | "signup">(search.tab ?? "signin");
 
   useEffect(() => {
-    if (!loading && session && role) {
-      // If a specific deep link was requested, honour it; otherwise show the welcome page.
-      const target = search.redirect || "/welcome";
+    if (!loading && session) {
+      // Honour deep link if provided, otherwise go to the role-specific dashboard.
+      const target = search.redirect || dashboardPathFor(role);
       void navigate({ to: target });
     }
   }, [session, role, loading, navigate, search.redirect]);
