@@ -21,6 +21,7 @@ import { Route as AppStudentResultsRouteImport } from './routes/app.student.resu
 import { Route as AppStudentParentsRouteImport } from './routes/app.student.parents'
 import { Route as AppStudentCoursesRouteImport } from './routes/app.student.courses'
 import { Route as AppLecturerCoursesRouteImport } from './routes/app.lecturer.courses'
+import { Route as AppAdminCoursesRouteImport } from './routes/app.admin.courses'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
@@ -82,6 +83,11 @@ const AppLecturerCoursesRoute = AppLecturerCoursesRouteImport.update({
   path: '/lecturer/courses',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAdminCoursesRoute = AppAdminCoursesRouteImport.update({
+  id: '/admin/courses',
+  path: '/admin/courses',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/welcome': typeof WelcomeRoute
   '/app/profile': typeof AppProfileRoute
   '/app/': typeof AppIndexRoute
+  '/app/admin/courses': typeof AppAdminCoursesRoute
   '/app/lecturer/courses': typeof AppLecturerCoursesRoute
   '/app/student/courses': typeof AppStudentCoursesRoute
   '/app/student/parents': typeof AppStudentParentsRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/welcome': typeof WelcomeRoute
   '/app/profile': typeof AppProfileRoute
   '/app': typeof AppIndexRoute
+  '/app/admin/courses': typeof AppAdminCoursesRoute
   '/app/lecturer/courses': typeof AppLecturerCoursesRoute
   '/app/student/courses': typeof AppStudentCoursesRoute
   '/app/student/parents': typeof AppStudentParentsRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/welcome': typeof WelcomeRoute
   '/app/profile': typeof AppProfileRoute
   '/app/': typeof AppIndexRoute
+  '/app/admin/courses': typeof AppAdminCoursesRoute
   '/app/lecturer/courses': typeof AppLecturerCoursesRoute
   '/app/student/courses': typeof AppStudentCoursesRoute
   '/app/student/parents': typeof AppStudentParentsRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/app/profile'
     | '/app/'
+    | '/app/admin/courses'
     | '/app/lecturer/courses'
     | '/app/student/courses'
     | '/app/student/parents'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/app/profile'
     | '/app'
+    | '/app/admin/courses'
     | '/app/lecturer/courses'
     | '/app/student/courses'
     | '/app/student/parents'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/app/profile'
     | '/app/'
+    | '/app/admin/courses'
     | '/app/lecturer/courses'
     | '/app/student/courses'
     | '/app/student/parents'
@@ -262,12 +274,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppLecturerCoursesRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/admin/courses': {
+      id: '/app/admin/courses'
+      path: '/admin/courses'
+      fullPath: '/app/admin/courses'
+      preLoaderRoute: typeof AppAdminCoursesRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
 interface AppRouteChildren {
   AppProfileRoute: typeof AppProfileRoute
   AppIndexRoute: typeof AppIndexRoute
+  AppAdminCoursesRoute: typeof AppAdminCoursesRoute
   AppLecturerCoursesRoute: typeof AppLecturerCoursesRoute
   AppStudentCoursesRoute: typeof AppStudentCoursesRoute
   AppStudentParentsRoute: typeof AppStudentParentsRoute
@@ -279,6 +299,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
   AppProfileRoute: AppProfileRoute,
   AppIndexRoute: AppIndexRoute,
+  AppAdminCoursesRoute: AppAdminCoursesRoute,
   AppLecturerCoursesRoute: AppLecturerCoursesRoute,
   AppStudentCoursesRoute: AppStudentCoursesRoute,
   AppStudentParentsRoute: AppStudentParentsRoute,
