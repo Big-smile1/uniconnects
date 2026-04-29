@@ -18,6 +18,7 @@ import {
   X,
   Send,
   Heart,
+  ClipboardList,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
@@ -47,6 +48,7 @@ const navByRole: Record<AppRole, NavItem[]> = {
     { to: "/app/admin/users", label: "Users", icon: Users },
     { to: "/app/admin/departments", label: "Departments", icon: Building2 },
     { to: "/app/admin/courses", label: "Courses", icon: BookOpen },
+    { to: "/app/admin/enrollments", label: "Enrollments", icon: ClipboardList },
     { to: "/app/admin/approvals", label: "Approvals", icon: ClipboardCheck },
     { to: "/app/admin/notifications", label: "Notifications", icon: Bell },
     { to: "/app/admin/announcements", label: "Announcements", icon: Megaphone },
