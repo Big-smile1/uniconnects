@@ -356,6 +356,95 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
         <Input id="su-phone" type="tel" value={form.phone} onChange={(e) => set("phone", e.target.value)} placeholder="+234…" />
       </div>
 
+      {form.role === "student" && (
+        <div className="space-y-3 rounded-md border border-border/60 bg-muted/30 p-4">
+          <div>
+            <div className="text-sm font-medium">Parent / Guardian</div>
+            <p className="text-xs text-muted-foreground">Required — they'll be notified when your results are released. Only an admin can change this later.</p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="su-p1-name">Guardian full name</Label>
+            <Input id="su-p1-name" value={form.parent1Name} onChange={(e) => set("parent1Name", e.target.value)} placeholder="Mr. Chinedu Okonkwo" required />
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="space-y-2">
+              <Label htmlFor="su-p1-phone">Phone</Label>
+              <Input id="su-p1-phone" type="tel" value={form.parent1Phone} onChange={(e) => set("parent1Phone", e.target.value)} placeholder="+2348012345678" required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="su-p1-rel">Relationship</Label>
+              <Select value={form.parent1Relationship} onValueChange={(v) => set("parent1Relationship", v)}>
+                <SelectTrigger id="su-p1-rel"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="father">Father</SelectItem>
+                  <SelectItem value="mother">Mother</SelectItem>
+                  <SelectItem value="guardian">Guardian</SelectItem>
+                  <SelectItem value="sibling">Sibling</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="su-p1-email">Email <span className="text-muted-foreground">(optional)</span></Label>
+            <Input id="su-p1-email" type="email" value={form.parent1Email} onChange={(e) => set("parent1Email", e.target.value)} placeholder="parent@example.com" />
+          </div>
+
+          {!showSecondGuardian ? (
+            <button
+              type="button"
+              onClick={() => setShowSecondGuardian(true)}
+              className="text-xs font-medium text-primary underline-offset-2 hover:underline"
+            >
+              + Add a second guardian (optional)
+            </button>
+          ) : (
+            <div className="space-y-3 border-t border-border/60 pt-3">
+              <div className="flex items-center justify-between">
+                <div className="text-sm font-medium">Second guardian</div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowSecondGuardian(false);
+                    setForm((s) => ({ ...s, parent2Name: "", parent2Phone: "", parent2Email: "" }));
+                  }}
+                  className="text-xs text-muted-foreground hover:text-foreground"
+                >
+                  Remove
+                </button>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="su-p2-name">Full name</Label>
+                <Input id="su-p2-name" value={form.parent2Name} onChange={(e) => set("parent2Name", e.target.value)} placeholder="Mrs. Ngozi Okonkwo" />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-2">
+                  <Label htmlFor="su-p2-phone">Phone</Label>
+                  <Input id="su-p2-phone" type="tel" value={form.parent2Phone} onChange={(e) => set("parent2Phone", e.target.value)} placeholder="+2348012345678" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="su-p2-rel">Relationship</Label>
+                  <Select value={form.parent2Relationship} onValueChange={(v) => set("parent2Relationship", v)}>
+                    <SelectTrigger id="su-p2-rel"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="father">Father</SelectItem>
+                      <SelectItem value="mother">Mother</SelectItem>
+                      <SelectItem value="guardian">Guardian</SelectItem>
+                      <SelectItem value="sibling">Sibling</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="su-p2-email">Email <span className="text-muted-foreground">(optional)</span></Label>
+                <Input id="su-p2-email" type="email" value={form.parent2Email} onChange={(e) => set("parent2Email", e.target.value)} placeholder="parent2@example.com" />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="space-y-2">
         <Label htmlFor="su-password">Password</Label>
         <Input id="su-password" type="password" value={form.password} onChange={(e) => set("password", e.target.value)} required minLength={8} autoComplete="new-password" />
