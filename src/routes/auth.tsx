@@ -182,7 +182,16 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     matricNumber: "",
     departmentId: "",
     role: "student" as AppRole,
+    parent1Name: "",
+    parent1Phone: "",
+    parent1Email: "",
+    parent1Relationship: "father",
+    parent2Name: "",
+    parent2Phone: "",
+    parent2Email: "",
+    parent2Relationship: "mother",
   });
+  const [showSecondGuardian, setShowSecondGuardian] = useState(false);
   const [departments, setDepartments] = useState<Department[]>([]);
   const [deptLoading, setDeptLoading] = useState(true);
   const [deptError, setDeptError] = useState<string | null>(null);
@@ -222,6 +231,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
       return;
     }
     setBusy(true);
+    const includeP2 = showSecondGuardian && parsed.data.parent2Name && parsed.data.parent2Phone;
     const { data: { user }, error } = await supabase.auth.signUp({
       email: parsed.data.email,
       password: parsed.data.password,
@@ -233,6 +243,22 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
           matric_number: parsed.data.matricNumber || null,
           department_id: parsed.data.departmentId || null,
           role: parsed.data.role,
+          ...(parsed.data.role === "student"
+            ? {
+                parent1_name: parsed.data.parent1Name,
+                parent1_phone: parsed.data.parent1Phone,
+                parent1_email: parsed.data.parent1Email || null,
+                parent1_relationship: parsed.data.parent1Relationship || "guardian",
+                ...(includeP2
+                  ? {
+                      parent2_name: parsed.data.parent2Name,
+                      parent2_phone: parsed.data.parent2Phone,
+                      parent2_email: parsed.data.parent2Email || null,
+                      parent2_relationship: parsed.data.parent2Relationship || "guardian",
+                    }
+                  : {}),
+              }
+            : {}),
         },
       },
     });
