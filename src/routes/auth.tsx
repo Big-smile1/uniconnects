@@ -26,6 +26,8 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+const phoneRegex = /^\+?[0-9\s\-()]{7,20}$/;
+
 const signupSchema = z
   .object({
     fullName: z.string().trim().min(2, "Please enter your full name").max(120),
@@ -35,16 +37,50 @@ const signupSchema = z
     matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
     departmentId: z.string().uuid().optional().or(z.literal("")),
     role: z.enum(["student", "lecturer", "parent", "admin"]),
+    // Primary guardian (required for students)
+    parent1Name: z.string().trim().max(120).optional().or(z.literal("")),
+    parent1Phone: z.string().trim().max(20).optional().or(z.literal("")),
+    parent1Email: z.string().trim().max(255).optional().or(z.literal("")),
+    parent1Relationship: z.string().optional().or(z.literal("")),
+    // Optional secondary guardian
+    parent2Name: z.string().trim().max(120).optional().or(z.literal("")),
+    parent2Phone: z.string().trim().max(20).optional().or(z.literal("")),
+    parent2Email: z.string().trim().max(255).optional().or(z.literal("")),
+    parent2Relationship: z.string().optional().or(z.literal("")),
   })
   .refine(
     (data) => {
-      // Department is only required for students and lecturers
       if (data.role === "student" || data.role === "lecturer") {
         return !!data.departmentId && data.departmentId.length > 0;
       }
       return true;
     },
     { message: "Please choose your department", path: ["departmentId"] },
+  )
+  .refine(
+    (data) => data.role !== "student" || (data.parent1Name && data.parent1Name.trim().length >= 2),
+    { message: "Primary guardian name is required", path: ["parent1Name"] },
+  )
+  .refine(
+    (data) => data.role !== "student" || (data.parent1Phone && phoneRegex.test(data.parent1Phone)),
+    { message: "Primary guardian phone is required (e.g. +2348012345678)", path: ["parent1Phone"] },
+  )
+  .refine(
+    (data) => !data.parent1Email || z.string().email().safeParse(data.parent1Email).success,
+    { message: "Primary guardian email is invalid", path: ["parent1Email"] },
+  )
+  .refine(
+    (data) => {
+      // If any parent2 field is filled, name + phone become required
+      const any = [data.parent2Name, data.parent2Phone, data.parent2Email].some((v) => v && v.trim().length > 0);
+      if (!any) return true;
+      return !!(data.parent2Name && data.parent2Name.trim().length >= 2 && data.parent2Phone && phoneRegex.test(data.parent2Phone));
+    },
+    { message: "Secondary guardian needs both name and a valid phone", path: ["parent2Phone"] },
+  )
+  .refine(
+    (data) => !data.parent2Email || z.string().email().safeParse(data.parent2Email).success,
+    { message: "Secondary guardian email is invalid", path: ["parent2Email"] },
   );
 
 const signinSchema = z.object({
