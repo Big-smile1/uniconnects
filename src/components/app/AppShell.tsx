@@ -18,6 +18,7 @@ import {
   X,
   Send,
   Heart,
+  ClipboardList,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
