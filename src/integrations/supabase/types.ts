@@ -41,6 +41,24 @@ export type Database = {
         }
         Relationships: []
       }
+      app_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
+        }
+        Relationships: []
+      }
       courses: {
         Row: {
           code: string
@@ -242,6 +260,7 @@ export type Database = {
       parent_links: {
         Row: {
           created_at: string
+          email_notifications_enabled: boolean
           id: string
           is_primary: boolean
           parent_email: string
@@ -253,6 +272,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          email_notifications_enabled?: boolean
           id?: string
           is_primary?: boolean
           parent_email: string
@@ -264,6 +284,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          email_notifications_enabled?: boolean
           id?: string
           is_primary?: boolean
           parent_email?: string
