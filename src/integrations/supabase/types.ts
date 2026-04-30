@@ -109,6 +109,54 @@ export type Database = {
         }
         Relationships: []
       }
+      email_outbox: {
+        Row: {
+          attempts: number
+          created_at: string
+          id: string
+          last_error: string | null
+          payload: Json
+          result_id: string | null
+          sent_at: string | null
+          status: string
+          student_id: string | null
+          subject: string
+          template_name: string
+          to_email: string
+          to_name: string | null
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          payload?: Json
+          result_id?: string | null
+          sent_at?: string | null
+          status?: string
+          student_id?: string | null
+          subject: string
+          template_name?: string
+          to_email: string
+          to_name?: string | null
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          payload?: Json
+          result_id?: string | null
+          sent_at?: string | null
+          status?: string
+          student_id?: string | null
+          subject?: string
+          template_name?: string
+          to_email?: string
+          to_name?: string | null
+        }
+        Relationships: []
+      }
       enrollments: {
         Row: {
           course_id: string
@@ -196,7 +244,7 @@ export type Database = {
           created_at: string
           id: string
           is_primary: boolean
-          parent_email: string | null
+          parent_email: string
           parent_name: string
           parent_phone: string
           parent_user_id: string | null
@@ -207,7 +255,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_primary?: boolean
-          parent_email?: string | null
+          parent_email: string
           parent_name: string
           parent_phone: string
           parent_user_id?: string | null
@@ -218,7 +266,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_primary?: boolean
-          parent_email?: string | null
+          parent_email?: string
           parent_name?: string
           parent_phone?: string
           parent_user_id?: string | null
