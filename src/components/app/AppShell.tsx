@@ -19,6 +19,8 @@ import {
   Send,
   Heart,
   ClipboardList,
+  PenSquare,
+  Settings,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
@@ -40,6 +42,8 @@ const navByRole: Record<AppRole, NavItem[]> = {
   lecturer: [
     { to: "/app/lecturer", label: "Dashboard", icon: LayoutDashboard },
     { to: "/app/lecturer/courses", label: "My Courses", icon: BookOpen },
+    { to: "/app/lecturer/scores", label: "Score entry", icon: PenSquare },
+    { to: "/app/lecturer/announcements", label: "My Posts", icon: Megaphone },
     { to: "/app/announcements", label: "Announcements", icon: Megaphone },
     { to: "/app/profile", label: "Profile", icon: UserCircle2 },
   ],
@@ -56,6 +60,7 @@ const navByRole: Record<AppRole, NavItem[]> = {
   ],
   parent: [
     { to: "/app/parent", label: "My Children", icon: Heart },
+    { to: "/app/parent/preferences", label: "Notifications", icon: Settings },
     { to: "/app/announcements", label: "Announcements", icon: Megaphone },
     { to: "/app/profile", label: "Profile", icon: UserCircle2 },
   ],
