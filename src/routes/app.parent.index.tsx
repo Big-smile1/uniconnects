@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { computeGPA, classOfDegree } from "@/lib/grades";
 import { GraduationCap, ArrowRight, Mail } from "lucide-react";
 
-export const Route = createFileRoute("/app/parent")({
+export const Route = createFileRoute("/app/parent/")({
   component: () => <RequireRole role="parent"><ParentDashboard /></RequireRole>,
 });
 
