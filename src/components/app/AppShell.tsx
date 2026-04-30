@@ -55,7 +55,7 @@ const navByRole: Record<AppRole, NavItem[]> = {
     { to: "/app/profile", label: "Profile", icon: UserCircle2 },
   ],
   parent: [
-    { to: "/app/parent", label: "Dashboard", icon: LayoutDashboard },
+    { to: "/app/parent", label: "My Children", icon: Heart },
     { to: "/app/announcements", label: "Announcements", icon: Megaphone },
     { to: "/app/profile", label: "Profile", icon: UserCircle2 },
   ],

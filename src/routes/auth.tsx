@@ -66,12 +66,12 @@ const signupSchema = z
     { message: "Primary guardian phone is required (e.g. +2348012345678)", path: ["parent1Phone"] },
   )
   .refine(
-    (data) => !data.parent1Email || z.string().email().safeParse(data.parent1Email).success,
-    { message: "Primary guardian email is invalid", path: ["parent1Email"] },
+    (data) => data.role !== "student" || (!!data.parent1Email && z.string().email().safeParse(data.parent1Email).success),
+    { message: "Primary guardian email is required (they'll use it to sign in and receive results)", path: ["parent1Email"] },
   )
   .refine(
     (data) => {
-      // If any parent2 field is filled, name + phone become required
+      // If any parent2 field is filled, name + phone + email become required
       const any = [data.parent2Name, data.parent2Phone, data.parent2Email].some((v) => v && v.trim().length > 0);
       if (!any) return true;
       return !!(data.parent2Name && data.parent2Name.trim().length >= 2 && data.parent2Phone && phoneRegex.test(data.parent2Phone));
@@ -79,8 +79,12 @@ const signupSchema = z
     { message: "Secondary guardian needs both name and a valid phone", path: ["parent2Phone"] },
   )
   .refine(
-    (data) => !data.parent2Email || z.string().email().safeParse(data.parent2Email).success,
-    { message: "Secondary guardian email is invalid", path: ["parent2Email"] },
+    (data) => {
+      const any = [data.parent2Name, data.parent2Phone, data.parent2Email].some((v) => v && v.trim().length > 0);
+      if (!any) return true;
+      return !!data.parent2Email && z.string().email().safeParse(data.parent2Email).success;
+    },
+    { message: "Secondary guardian email is required and must be valid", path: ["parent2Email"] },
   );
 
 const signinSchema = z.object({
@@ -386,8 +390,9 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="su-p1-email">Email <span className="text-muted-foreground">(optional)</span></Label>
-            <Input id="su-p1-email" type="email" value={form.parent1Email} onChange={(e) => set("parent1Email", e.target.value)} placeholder="parent@example.com" />
+            <Label htmlFor="su-p1-email">Guardian email</Label>
+            <Input id="su-p1-email" type="email" value={form.parent1Email} onChange={(e) => set("parent1Email", e.target.value)} placeholder="parent@example.com" required />
+            <p className="text-xs text-muted-foreground">Your guardian will use this email to sign in and will be notified the moment your results are released.</p>
           </div>
 
           {!showSecondGuardian ? (
@@ -437,7 +442,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="su-p2-email">Email <span className="text-muted-foreground">(optional)</span></Label>
+                <Label htmlFor="su-p2-email">Email</Label>
                 <Input id="su-p2-email" type="email" value={form.parent2Email} onChange={(e) => set("parent2Email", e.target.value)} placeholder="parent2@example.com" />
               </div>
             </div>
