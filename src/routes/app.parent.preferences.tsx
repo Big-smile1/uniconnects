@@ -15,7 +15,7 @@ export const Route = createFileRoute("/app/parent/preferences")({
   component: () => <RequireRole role="parent"><ParentPrefs /></RequireRole>,
 });
 
-type Link = {
+type ChildLink = {
   id: string;
   student_id: string;
   email_notifications_enabled: boolean;
@@ -25,7 +25,7 @@ type Link = {
 
 function ParentPrefs() {
   const { user } = useAuth();
-  const [links, setLinks] = useState<Link[]>([]);
+  const [links, setLinks] = useState<ChildLink[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
