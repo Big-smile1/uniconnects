@@ -50,7 +50,7 @@ const signupSchema = z
   })
   .refine(
     (data) => {
-      if (data.role === "student" || data.role === "lecturer") {
+      if (data.role === "student") {
         return !!data.departmentId && data.departmentId.length > 0;
       }
       return true;
