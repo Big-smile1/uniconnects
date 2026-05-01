@@ -19,7 +19,7 @@ import {
 import { toast } from "sonner";
 import { Loader2, Save, Send, Upload, Download } from "lucide-react";
 
-export const Route = createFileRoute("/app/lecturer/scores")({
+export const Route = createFileRoute("/lecturer/scores")({
   head: () => ({ meta: [{ title: "Score entry — Lecturer" }] }),
   component: () => (
     <RequireRole role="lecturer">

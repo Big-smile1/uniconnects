@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { toast } from "sonner";
 import { Plus, Upload, Trash2, Loader2, ClipboardList, Download } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/enrollments")({
+export const Route = createFileRoute("/admin/enrollments")({
   head: () => ({ meta: [{ title: "Enrollments — Admin · Mountain Top University" }] }),
   component: () => (
     <RequireRole role="admin">

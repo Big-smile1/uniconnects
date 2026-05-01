@@ -26,7 +26,7 @@ import {
 import { toast } from "sonner";
 import { BookOpen, Plus, Upload, Trash2, UserMinus, Loader2, Download } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/courses")({
+export const Route = createFileRoute("/admin/courses")({
   head: () => ({ meta: [{ title: "Courses — Admin · Mountain Top University" }] }),
   component: () => (
     <RequireRole role="admin">

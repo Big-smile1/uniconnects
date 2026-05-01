@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Mail, RefreshCw, CheckCircle2, AlertCircle, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/notifications")({
+export const Route = createFileRoute("/admin/notifications")({
   component: () => <RequireRole role="admin"><AdminNotifications /></RequireRole>,
 });
 

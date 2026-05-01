@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { BookOpen, Check, X, Lock, Loader2 } from "lucide-react";
 
-export const Route = createFileRoute("/app/lecturer/courses")({
+export const Route = createFileRoute("/lecturer/courses")({
   head: () => ({ meta: [{ title: "My courses — Mountain Top University" }] }),
   component: () => (
     <RequireRole role="lecturer">

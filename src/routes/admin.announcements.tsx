@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { Loader2, Send, Trash2, Megaphone } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/announcements")({
+export const Route = createFileRoute("/admin/announcements")({
   head: () => ({ meta: [{ title: "Announcements — Admin · MTU" }] }),
   component: () => <RequireRole role="admin"><AdminAnnouncements /></RequireRole>,
 });

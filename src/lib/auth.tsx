@@ -92,9 +92,9 @@ export function useAuth() {
 export function dashboardPathFor(role: AppRole | null): string {
   switch (role) {
     case "admin":
-      return "/app/admin";
+      return "/admin";
     case "lecturer":
-      return "/app/lecturer";
+      return "/lecturer";
     case "parent":
       return "/app/parent";
     case "student":

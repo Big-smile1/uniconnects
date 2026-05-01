@@ -56,14 +56,14 @@ const actionsByRole: Record<AppRole, QuickAction[]> = {
     { to: "/app/student/parents", title: "Add a parent", body: "So they're notified the moment results drop.", icon: Heart },
   ],
   lecturer: [
-    { to: "/app/lecturer", title: "Open my courses", body: "Upload scores and manage your students' results.", icon: BookOpen },
+    { to: "/lecturer", title: "Open my courses", body: "Upload scores and manage your students' results.", icon: BookOpen },
     { to: "/app/announcements", title: "Post an announcement", body: "Share updates with your class instantly.", icon: Megaphone },
     { to: "/app/profile", title: "Update profile", body: "Keep your contact details up to date.", icon: UserCircle2 },
   ],
   admin: [
-    { to: "/app/admin/approvals", title: "Approve pending results", body: "Release verified results to students and parents.", icon: ClipboardCheck },
-    { to: "/app/admin/users", title: "Manage users", body: "Add lecturers, assign roles, oversee the system.", icon: Users },
-    { to: "/app/admin/notifications", title: "Notification centre", body: "See every SMS and email sent to parents.", icon: Bell },
+    { to: "/admin/approvals", title: "Approve pending results", body: "Release verified results to students and parents.", icon: ClipboardCheck },
+    { to: "/admin/users", title: "Manage users", body: "Add lecturers, assign roles, oversee the system.", icon: Users },
+    { to: "/admin/notifications", title: "Notification centre", body: "See every SMS and email sent to parents.", icon: Bell },
   ],
   parent: [
     { to: "/app/parent", title: "View your child's results", body: "Stay across every approved semester result.", icon: GraduationCap },

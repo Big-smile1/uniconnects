@@ -10,35 +10,42 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as LecturerRouteImport } from './routes/lecturer'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LecturerIndexRouteImport } from './routes/lecturer.index'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as LecturerScoresRouteImport } from './routes/lecturer.scores'
+import { Route as LecturerCoursesRouteImport } from './routes/lecturer.courses'
+import { Route as LecturerAnnouncementsRouteImport } from './routes/lecturer.announcements'
 import { Route as AppProfileRouteImport } from './routes/app.profile'
 import { Route as AppAnnouncementsRouteImport } from './routes/app.announcements'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
+import { Route as AdminEnrollmentsRouteImport } from './routes/admin.enrollments'
+import { Route as AdminDepartmentsRouteImport } from './routes/admin.departments'
+import { Route as AdminCoursesRouteImport } from './routes/admin.courses'
+import { Route as AdminApprovalsRouteImport } from './routes/admin.approvals'
+import { Route as AdminAnnouncementsRouteImport } from './routes/admin.announcements'
 import { Route as AppStudentIndexRouteImport } from './routes/app.student.index'
 import { Route as AppParentIndexRouteImport } from './routes/app.parent.index'
-import { Route as AppLecturerIndexRouteImport } from './routes/app.lecturer.index'
-import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
 import { Route as AppStudentResultsRouteImport } from './routes/app.student.results'
 import { Route as AppStudentParentsRouteImport } from './routes/app.student.parents'
 import { Route as AppStudentCoursesRouteImport } from './routes/app.student.courses'
 import { Route as AppParentPreferencesRouteImport } from './routes/app.parent.preferences'
-import { Route as AppLecturerScoresRouteImport } from './routes/app.lecturer.scores'
-import { Route as AppLecturerCoursesRouteImport } from './routes/app.lecturer.courses'
-import { Route as AppLecturerAnnouncementsRouteImport } from './routes/app.lecturer.announcements'
-import { Route as AppAdminUsersRouteImport } from './routes/app.admin.users'
-import { Route as AppAdminNotificationsRouteImport } from './routes/app.admin.notifications'
-import { Route as AppAdminEnrollmentsRouteImport } from './routes/app.admin.enrollments'
-import { Route as AppAdminDepartmentsRouteImport } from './routes/app.admin.departments'
-import { Route as AppAdminCoursesRouteImport } from './routes/app.admin.courses'
-import { Route as AppAdminApprovalsRouteImport } from './routes/app.admin.approvals'
-import { Route as AppAdminAnnouncementsRouteImport } from './routes/app.admin.announcements'
 import { Route as AppParentResultsStudentIdRouteImport } from './routes/app.parent.results.$studentId'
 
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LecturerRoute = LecturerRouteImport.update({
+  id: '/lecturer',
+  path: '/lecturer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -51,15 +58,45 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LecturerIndexRoute = LecturerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LecturerRoute,
+} as any)
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRoute,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const LecturerScoresRoute = LecturerScoresRouteImport.update({
+  id: '/scores',
+  path: '/scores',
+  getParentRoute: () => LecturerRoute,
+} as any)
+const LecturerCoursesRoute = LecturerCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => LecturerRoute,
+} as any)
+const LecturerAnnouncementsRoute = LecturerAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => LecturerRoute,
 } as any)
 const AppProfileRoute = AppProfileRouteImport.update({
   id: '/profile',
@@ -71,6 +108,41 @@ const AppAnnouncementsRoute = AppAnnouncementsRouteImport.update({
   path: '/announcements',
   getParentRoute: () => AppRoute,
 } as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEnrollmentsRoute = AdminEnrollmentsRouteImport.update({
+  id: '/enrollments',
+  path: '/enrollments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDepartmentsRoute = AdminDepartmentsRouteImport.update({
+  id: '/departments',
+  path: '/departments',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCoursesRoute = AdminCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminApprovalsRoute = AdminApprovalsRouteImport.update({
+  id: '/approvals',
+  path: '/approvals',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnnouncementsRoute = AdminAnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AppStudentIndexRoute = AppStudentIndexRouteImport.update({
   id: '/student/',
   path: '/student/',
@@ -79,16 +151,6 @@ const AppStudentIndexRoute = AppStudentIndexRouteImport.update({
 const AppParentIndexRoute = AppParentIndexRouteImport.update({
   id: '/parent/',
   path: '/parent/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppLecturerIndexRoute = AppLecturerIndexRouteImport.update({
-  id: '/lecturer/',
-  path: '/lecturer/',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminIndexRoute = AppAdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
   getParentRoute: () => AppRoute,
 } as any)
 const AppStudentResultsRoute = AppStudentResultsRouteImport.update({
@@ -111,57 +173,6 @@ const AppParentPreferencesRoute = AppParentPreferencesRouteImport.update({
   path: '/parent/preferences',
   getParentRoute: () => AppRoute,
 } as any)
-const AppLecturerScoresRoute = AppLecturerScoresRouteImport.update({
-  id: '/lecturer/scores',
-  path: '/lecturer/scores',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppLecturerCoursesRoute = AppLecturerCoursesRouteImport.update({
-  id: '/lecturer/courses',
-  path: '/lecturer/courses',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppLecturerAnnouncementsRoute =
-  AppLecturerAnnouncementsRouteImport.update({
-    id: '/lecturer/announcements',
-    path: '/lecturer/announcements',
-    getParentRoute: () => AppRoute,
-  } as any)
-const AppAdminUsersRoute = AppAdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminNotificationsRoute = AppAdminNotificationsRouteImport.update({
-  id: '/admin/notifications',
-  path: '/admin/notifications',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminEnrollmentsRoute = AppAdminEnrollmentsRouteImport.update({
-  id: '/admin/enrollments',
-  path: '/admin/enrollments',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminDepartmentsRoute = AppAdminDepartmentsRouteImport.update({
-  id: '/admin/departments',
-  path: '/admin/departments',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminCoursesRoute = AppAdminCoursesRouteImport.update({
-  id: '/admin/courses',
-  path: '/admin/courses',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminApprovalsRoute = AppAdminApprovalsRouteImport.update({
-  id: '/admin/approvals',
-  path: '/admin/approvals',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppAdminAnnouncementsRoute = AppAdminAnnouncementsRouteImport.update({
-  id: '/admin/announcements',
-  path: '/admin/announcements',
-  getParentRoute: () => AppRoute,
-} as any)
 const AppParentResultsStudentIdRoute =
   AppParentResultsStudentIdRouteImport.update({
     id: '/parent/results/$studentId',
@@ -171,28 +182,30 @@ const AppParentResultsStudentIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/lecturer': typeof LecturerRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/approvals': typeof AdminApprovalsRoute
+  '/admin/courses': typeof AdminCoursesRoute
+  '/admin/departments': typeof AdminDepartmentsRoute
+  '/admin/enrollments': typeof AdminEnrollmentsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/app/announcements': typeof AppAnnouncementsRoute
   '/app/profile': typeof AppProfileRoute
+  '/lecturer/announcements': typeof LecturerAnnouncementsRoute
+  '/lecturer/courses': typeof LecturerCoursesRoute
+  '/lecturer/scores': typeof LecturerScoresRoute
+  '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
-  '/app/admin/announcements': typeof AppAdminAnnouncementsRoute
-  '/app/admin/approvals': typeof AppAdminApprovalsRoute
-  '/app/admin/courses': typeof AppAdminCoursesRoute
-  '/app/admin/departments': typeof AppAdminDepartmentsRoute
-  '/app/admin/enrollments': typeof AppAdminEnrollmentsRoute
-  '/app/admin/notifications': typeof AppAdminNotificationsRoute
-  '/app/admin/users': typeof AppAdminUsersRoute
-  '/app/lecturer/announcements': typeof AppLecturerAnnouncementsRoute
-  '/app/lecturer/courses': typeof AppLecturerCoursesRoute
-  '/app/lecturer/scores': typeof AppLecturerScoresRoute
+  '/lecturer/': typeof LecturerIndexRoute
   '/app/parent/preferences': typeof AppParentPreferencesRoute
   '/app/student/courses': typeof AppStudentCoursesRoute
   '/app/student/parents': typeof AppStudentParentsRoute
   '/app/student/results': typeof AppStudentResultsRoute
-  '/app/admin/': typeof AppAdminIndexRoute
-  '/app/lecturer/': typeof AppLecturerIndexRoute
   '/app/parent/': typeof AppParentIndexRoute
   '/app/student/': typeof AppStudentIndexRoute
   '/app/parent/results/$studentId': typeof AppParentResultsStudentIdRoute
@@ -201,25 +214,25 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/welcome': typeof WelcomeRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/approvals': typeof AdminApprovalsRoute
+  '/admin/courses': typeof AdminCoursesRoute
+  '/admin/departments': typeof AdminDepartmentsRoute
+  '/admin/enrollments': typeof AdminEnrollmentsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/app/announcements': typeof AppAnnouncementsRoute
   '/app/profile': typeof AppProfileRoute
+  '/lecturer/announcements': typeof LecturerAnnouncementsRoute
+  '/lecturer/courses': typeof LecturerCoursesRoute
+  '/lecturer/scores': typeof LecturerScoresRoute
+  '/admin': typeof AdminIndexRoute
   '/app': typeof AppIndexRoute
-  '/app/admin/announcements': typeof AppAdminAnnouncementsRoute
-  '/app/admin/approvals': typeof AppAdminApprovalsRoute
-  '/app/admin/courses': typeof AppAdminCoursesRoute
-  '/app/admin/departments': typeof AppAdminDepartmentsRoute
-  '/app/admin/enrollments': typeof AppAdminEnrollmentsRoute
-  '/app/admin/notifications': typeof AppAdminNotificationsRoute
-  '/app/admin/users': typeof AppAdminUsersRoute
-  '/app/lecturer/announcements': typeof AppLecturerAnnouncementsRoute
-  '/app/lecturer/courses': typeof AppLecturerCoursesRoute
-  '/app/lecturer/scores': typeof AppLecturerScoresRoute
+  '/lecturer': typeof LecturerIndexRoute
   '/app/parent/preferences': typeof AppParentPreferencesRoute
   '/app/student/courses': typeof AppStudentCoursesRoute
   '/app/student/parents': typeof AppStudentParentsRoute
   '/app/student/results': typeof AppStudentResultsRoute
-  '/app/admin': typeof AppAdminIndexRoute
-  '/app/lecturer': typeof AppLecturerIndexRoute
   '/app/parent': typeof AppParentIndexRoute
   '/app/student': typeof AppStudentIndexRoute
   '/app/parent/results/$studentId': typeof AppParentResultsStudentIdRoute
@@ -227,28 +240,30 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
+  '/lecturer': typeof LecturerRouteWithChildren
   '/welcome': typeof WelcomeRoute
+  '/admin/announcements': typeof AdminAnnouncementsRoute
+  '/admin/approvals': typeof AdminApprovalsRoute
+  '/admin/courses': typeof AdminCoursesRoute
+  '/admin/departments': typeof AdminDepartmentsRoute
+  '/admin/enrollments': typeof AdminEnrollmentsRoute
+  '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/users': typeof AdminUsersRoute
   '/app/announcements': typeof AppAnnouncementsRoute
   '/app/profile': typeof AppProfileRoute
+  '/lecturer/announcements': typeof LecturerAnnouncementsRoute
+  '/lecturer/courses': typeof LecturerCoursesRoute
+  '/lecturer/scores': typeof LecturerScoresRoute
+  '/admin/': typeof AdminIndexRoute
   '/app/': typeof AppIndexRoute
-  '/app/admin/announcements': typeof AppAdminAnnouncementsRoute
-  '/app/admin/approvals': typeof AppAdminApprovalsRoute
-  '/app/admin/courses': typeof AppAdminCoursesRoute
-  '/app/admin/departments': typeof AppAdminDepartmentsRoute
-  '/app/admin/enrollments': typeof AppAdminEnrollmentsRoute
-  '/app/admin/notifications': typeof AppAdminNotificationsRoute
-  '/app/admin/users': typeof AppAdminUsersRoute
-  '/app/lecturer/announcements': typeof AppLecturerAnnouncementsRoute
-  '/app/lecturer/courses': typeof AppLecturerCoursesRoute
-  '/app/lecturer/scores': typeof AppLecturerScoresRoute
+  '/lecturer/': typeof LecturerIndexRoute
   '/app/parent/preferences': typeof AppParentPreferencesRoute
   '/app/student/courses': typeof AppStudentCoursesRoute
   '/app/student/parents': typeof AppStudentParentsRoute
   '/app/student/results': typeof AppStudentResultsRoute
-  '/app/admin/': typeof AppAdminIndexRoute
-  '/app/lecturer/': typeof AppLecturerIndexRoute
   '/app/parent/': typeof AppParentIndexRoute
   '/app/student/': typeof AppStudentIndexRoute
   '/app/parent/results/$studentId': typeof AppParentResultsStudentIdRoute
@@ -257,28 +272,30 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/app'
     | '/auth'
+    | '/lecturer'
     | '/welcome'
+    | '/admin/announcements'
+    | '/admin/approvals'
+    | '/admin/courses'
+    | '/admin/departments'
+    | '/admin/enrollments'
+    | '/admin/notifications'
+    | '/admin/users'
     | '/app/announcements'
     | '/app/profile'
+    | '/lecturer/announcements'
+    | '/lecturer/courses'
+    | '/lecturer/scores'
+    | '/admin/'
     | '/app/'
-    | '/app/admin/announcements'
-    | '/app/admin/approvals'
-    | '/app/admin/courses'
-    | '/app/admin/departments'
-    | '/app/admin/enrollments'
-    | '/app/admin/notifications'
-    | '/app/admin/users'
-    | '/app/lecturer/announcements'
-    | '/app/lecturer/courses'
-    | '/app/lecturer/scores'
+    | '/lecturer/'
     | '/app/parent/preferences'
     | '/app/student/courses'
     | '/app/student/parents'
     | '/app/student/results'
-    | '/app/admin/'
-    | '/app/lecturer/'
     | '/app/parent/'
     | '/app/student/'
     | '/app/parent/results/$studentId'
@@ -287,53 +304,55 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/welcome'
+    | '/admin/announcements'
+    | '/admin/approvals'
+    | '/admin/courses'
+    | '/admin/departments'
+    | '/admin/enrollments'
+    | '/admin/notifications'
+    | '/admin/users'
     | '/app/announcements'
     | '/app/profile'
+    | '/lecturer/announcements'
+    | '/lecturer/courses'
+    | '/lecturer/scores'
+    | '/admin'
     | '/app'
-    | '/app/admin/announcements'
-    | '/app/admin/approvals'
-    | '/app/admin/courses'
-    | '/app/admin/departments'
-    | '/app/admin/enrollments'
-    | '/app/admin/notifications'
-    | '/app/admin/users'
-    | '/app/lecturer/announcements'
-    | '/app/lecturer/courses'
-    | '/app/lecturer/scores'
+    | '/lecturer'
     | '/app/parent/preferences'
     | '/app/student/courses'
     | '/app/student/parents'
     | '/app/student/results'
-    | '/app/admin'
-    | '/app/lecturer'
     | '/app/parent'
     | '/app/student'
     | '/app/parent/results/$studentId'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/app'
     | '/auth'
+    | '/lecturer'
     | '/welcome'
+    | '/admin/announcements'
+    | '/admin/approvals'
+    | '/admin/courses'
+    | '/admin/departments'
+    | '/admin/enrollments'
+    | '/admin/notifications'
+    | '/admin/users'
     | '/app/announcements'
     | '/app/profile'
+    | '/lecturer/announcements'
+    | '/lecturer/courses'
+    | '/lecturer/scores'
+    | '/admin/'
     | '/app/'
-    | '/app/admin/announcements'
-    | '/app/admin/approvals'
-    | '/app/admin/courses'
-    | '/app/admin/departments'
-    | '/app/admin/enrollments'
-    | '/app/admin/notifications'
-    | '/app/admin/users'
-    | '/app/lecturer/announcements'
-    | '/app/lecturer/courses'
-    | '/app/lecturer/scores'
+    | '/lecturer/'
     | '/app/parent/preferences'
     | '/app/student/courses'
     | '/app/student/parents'
     | '/app/student/results'
-    | '/app/admin/'
-    | '/app/lecturer/'
     | '/app/parent/'
     | '/app/student/'
     | '/app/parent/results/$studentId'
@@ -341,8 +360,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
+  LecturerRoute: typeof LecturerRouteWithChildren
   WelcomeRoute: typeof WelcomeRoute
 }
 
@@ -353,6 +374,13 @@ declare module '@tanstack/react-router' {
       path: '/welcome'
       fullPath: '/welcome'
       preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lecturer': {
+      id: '/lecturer'
+      path: '/lecturer'
+      fullPath: '/lecturer'
+      preLoaderRoute: typeof LecturerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -369,6 +397,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -376,12 +411,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lecturer/': {
+      id: '/lecturer/'
+      path: '/'
+      fullPath: '/lecturer/'
+      preLoaderRoute: typeof LecturerIndexRouteImport
+      parentRoute: typeof LecturerRoute
+    }
     '/app/': {
       id: '/app/'
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/lecturer/scores': {
+      id: '/lecturer/scores'
+      path: '/scores'
+      fullPath: '/lecturer/scores'
+      preLoaderRoute: typeof LecturerScoresRouteImport
+      parentRoute: typeof LecturerRoute
+    }
+    '/lecturer/courses': {
+      id: '/lecturer/courses'
+      path: '/courses'
+      fullPath: '/lecturer/courses'
+      preLoaderRoute: typeof LecturerCoursesRouteImport
+      parentRoute: typeof LecturerRoute
+    }
+    '/lecturer/announcements': {
+      id: '/lecturer/announcements'
+      path: '/announcements'
+      fullPath: '/lecturer/announcements'
+      preLoaderRoute: typeof LecturerAnnouncementsRouteImport
+      parentRoute: typeof LecturerRoute
     }
     '/app/profile': {
       id: '/app/profile'
@@ -397,6 +467,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAnnouncementsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/notifications': {
+      id: '/admin/notifications'
+      path: '/notifications'
+      fullPath: '/admin/notifications'
+      preLoaderRoute: typeof AdminNotificationsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/enrollments': {
+      id: '/admin/enrollments'
+      path: '/enrollments'
+      fullPath: '/admin/enrollments'
+      preLoaderRoute: typeof AdminEnrollmentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/departments': {
+      id: '/admin/departments'
+      path: '/departments'
+      fullPath: '/admin/departments'
+      preLoaderRoute: typeof AdminDepartmentsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/courses': {
+      id: '/admin/courses'
+      path: '/courses'
+      fullPath: '/admin/courses'
+      preLoaderRoute: typeof AdminCoursesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/approvals': {
+      id: '/admin/approvals'
+      path: '/approvals'
+      fullPath: '/admin/approvals'
+      preLoaderRoute: typeof AdminApprovalsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/announcements': {
+      id: '/admin/announcements'
+      path: '/announcements'
+      fullPath: '/admin/announcements'
+      preLoaderRoute: typeof AdminAnnouncementsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/app/student/': {
       id: '/app/student/'
       path: '/student'
@@ -409,20 +528,6 @@ declare module '@tanstack/react-router' {
       path: '/parent'
       fullPath: '/app/parent/'
       preLoaderRoute: typeof AppParentIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/lecturer/': {
-      id: '/app/lecturer/'
-      path: '/lecturer'
-      fullPath: '/app/lecturer/'
-      preLoaderRoute: typeof AppLecturerIndexRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/': {
-      id: '/app/admin/'
-      path: '/admin'
-      fullPath: '/app/admin/'
-      preLoaderRoute: typeof AppAdminIndexRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/student/results': {
@@ -453,76 +558,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppParentPreferencesRouteImport
       parentRoute: typeof AppRoute
     }
-    '/app/lecturer/scores': {
-      id: '/app/lecturer/scores'
-      path: '/lecturer/scores'
-      fullPath: '/app/lecturer/scores'
-      preLoaderRoute: typeof AppLecturerScoresRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/lecturer/courses': {
-      id: '/app/lecturer/courses'
-      path: '/lecturer/courses'
-      fullPath: '/app/lecturer/courses'
-      preLoaderRoute: typeof AppLecturerCoursesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/lecturer/announcements': {
-      id: '/app/lecturer/announcements'
-      path: '/lecturer/announcements'
-      fullPath: '/app/lecturer/announcements'
-      preLoaderRoute: typeof AppLecturerAnnouncementsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/users': {
-      id: '/app/admin/users'
-      path: '/admin/users'
-      fullPath: '/app/admin/users'
-      preLoaderRoute: typeof AppAdminUsersRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/notifications': {
-      id: '/app/admin/notifications'
-      path: '/admin/notifications'
-      fullPath: '/app/admin/notifications'
-      preLoaderRoute: typeof AppAdminNotificationsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/enrollments': {
-      id: '/app/admin/enrollments'
-      path: '/admin/enrollments'
-      fullPath: '/app/admin/enrollments'
-      preLoaderRoute: typeof AppAdminEnrollmentsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/departments': {
-      id: '/app/admin/departments'
-      path: '/admin/departments'
-      fullPath: '/app/admin/departments'
-      preLoaderRoute: typeof AppAdminDepartmentsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/courses': {
-      id: '/app/admin/courses'
-      path: '/admin/courses'
-      fullPath: '/app/admin/courses'
-      preLoaderRoute: typeof AppAdminCoursesRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/approvals': {
-      id: '/app/admin/approvals'
-      path: '/admin/approvals'
-      fullPath: '/app/admin/approvals'
-      preLoaderRoute: typeof AppAdminApprovalsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/app/admin/announcements': {
-      id: '/app/admin/announcements'
-      path: '/admin/announcements'
-      fullPath: '/app/admin/announcements'
-      preLoaderRoute: typeof AppAdminAnnouncementsRouteImport
-      parentRoute: typeof AppRoute
-    }
     '/app/parent/results/$studentId': {
       id: '/app/parent/results/$studentId'
       path: '/parent/results/$studentId'
@@ -533,26 +568,38 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AdminRouteChildren {
+  AdminAnnouncementsRoute: typeof AdminAnnouncementsRoute
+  AdminApprovalsRoute: typeof AdminApprovalsRoute
+  AdminCoursesRoute: typeof AdminCoursesRoute
+  AdminDepartmentsRoute: typeof AdminDepartmentsRoute
+  AdminEnrollmentsRoute: typeof AdminEnrollmentsRoute
+  AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminUsersRoute: typeof AdminUsersRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnnouncementsRoute: AdminAnnouncementsRoute,
+  AdminApprovalsRoute: AdminApprovalsRoute,
+  AdminCoursesRoute: AdminCoursesRoute,
+  AdminDepartmentsRoute: AdminDepartmentsRoute,
+  AdminEnrollmentsRoute: AdminEnrollmentsRoute,
+  AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 interface AppRouteChildren {
   AppAnnouncementsRoute: typeof AppAnnouncementsRoute
   AppProfileRoute: typeof AppProfileRoute
   AppIndexRoute: typeof AppIndexRoute
-  AppAdminAnnouncementsRoute: typeof AppAdminAnnouncementsRoute
-  AppAdminApprovalsRoute: typeof AppAdminApprovalsRoute
-  AppAdminCoursesRoute: typeof AppAdminCoursesRoute
-  AppAdminDepartmentsRoute: typeof AppAdminDepartmentsRoute
-  AppAdminEnrollmentsRoute: typeof AppAdminEnrollmentsRoute
-  AppAdminNotificationsRoute: typeof AppAdminNotificationsRoute
-  AppAdminUsersRoute: typeof AppAdminUsersRoute
-  AppLecturerAnnouncementsRoute: typeof AppLecturerAnnouncementsRoute
-  AppLecturerCoursesRoute: typeof AppLecturerCoursesRoute
-  AppLecturerScoresRoute: typeof AppLecturerScoresRoute
   AppParentPreferencesRoute: typeof AppParentPreferencesRoute
   AppStudentCoursesRoute: typeof AppStudentCoursesRoute
   AppStudentParentsRoute: typeof AppStudentParentsRoute
   AppStudentResultsRoute: typeof AppStudentResultsRoute
-  AppAdminIndexRoute: typeof AppAdminIndexRoute
-  AppLecturerIndexRoute: typeof AppLecturerIndexRoute
   AppParentIndexRoute: typeof AppParentIndexRoute
   AppStudentIndexRoute: typeof AppStudentIndexRoute
   AppParentResultsStudentIdRoute: typeof AppParentResultsStudentIdRoute
@@ -562,22 +609,10 @@ const AppRouteChildren: AppRouteChildren = {
   AppAnnouncementsRoute: AppAnnouncementsRoute,
   AppProfileRoute: AppProfileRoute,
   AppIndexRoute: AppIndexRoute,
-  AppAdminAnnouncementsRoute: AppAdminAnnouncementsRoute,
-  AppAdminApprovalsRoute: AppAdminApprovalsRoute,
-  AppAdminCoursesRoute: AppAdminCoursesRoute,
-  AppAdminDepartmentsRoute: AppAdminDepartmentsRoute,
-  AppAdminEnrollmentsRoute: AppAdminEnrollmentsRoute,
-  AppAdminNotificationsRoute: AppAdminNotificationsRoute,
-  AppAdminUsersRoute: AppAdminUsersRoute,
-  AppLecturerAnnouncementsRoute: AppLecturerAnnouncementsRoute,
-  AppLecturerCoursesRoute: AppLecturerCoursesRoute,
-  AppLecturerScoresRoute: AppLecturerScoresRoute,
   AppParentPreferencesRoute: AppParentPreferencesRoute,
   AppStudentCoursesRoute: AppStudentCoursesRoute,
   AppStudentParentsRoute: AppStudentParentsRoute,
   AppStudentResultsRoute: AppStudentResultsRoute,
-  AppAdminIndexRoute: AppAdminIndexRoute,
-  AppLecturerIndexRoute: AppLecturerIndexRoute,
   AppParentIndexRoute: AppParentIndexRoute,
   AppStudentIndexRoute: AppStudentIndexRoute,
   AppParentResultsStudentIdRoute: AppParentResultsStudentIdRoute,
@@ -585,10 +620,30 @@ const AppRouteChildren: AppRouteChildren = {
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
+interface LecturerRouteChildren {
+  LecturerAnnouncementsRoute: typeof LecturerAnnouncementsRoute
+  LecturerCoursesRoute: typeof LecturerCoursesRoute
+  LecturerScoresRoute: typeof LecturerScoresRoute
+  LecturerIndexRoute: typeof LecturerIndexRoute
+}
+
+const LecturerRouteChildren: LecturerRouteChildren = {
+  LecturerAnnouncementsRoute: LecturerAnnouncementsRoute,
+  LecturerCoursesRoute: LecturerCoursesRoute,
+  LecturerScoresRoute: LecturerScoresRoute,
+  LecturerIndexRoute: LecturerIndexRoute,
+}
+
+const LecturerRouteWithChildren = LecturerRoute._addFileChildren(
+  LecturerRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
+  LecturerRoute: LecturerRouteWithChildren,
   WelcomeRoute: WelcomeRoute,
 }
 export const routeTree = rootRouteImport
