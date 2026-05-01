@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
+import { Route as StaffLoginRouteImport } from './routes/staff-login'
 import { Route as LecturerRouteImport } from './routes/lecturer'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AppRouteImport } from './routes/app'
@@ -41,6 +42,11 @@ import { Route as AppParentResultsStudentIdRouteImport } from './routes/app.pare
 const WelcomeRoute = WelcomeRouteImport.update({
   id: '/welcome',
   path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StaffLoginRoute = StaffLoginRouteImport.update({
+  id: '/staff-login',
+  path: '/staff-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LecturerRoute = LecturerRouteImport.update({
@@ -186,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/lecturer': typeof LecturerRouteWithChildren
+  '/staff-login': typeof StaffLoginRoute
   '/welcome': typeof WelcomeRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/approvals': typeof AdminApprovalsRoute
@@ -213,6 +220,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/staff-login': typeof StaffLoginRoute
   '/welcome': typeof WelcomeRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/approvals': typeof AdminApprovalsRoute
@@ -244,6 +252,7 @@ export interface FileRoutesById {
   '/app': typeof AppRouteWithChildren
   '/auth': typeof AuthRoute
   '/lecturer': typeof LecturerRouteWithChildren
+  '/staff-login': typeof StaffLoginRoute
   '/welcome': typeof WelcomeRoute
   '/admin/announcements': typeof AdminAnnouncementsRoute
   '/admin/approvals': typeof AdminApprovalsRoute
@@ -276,6 +285,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/lecturer'
+    | '/staff-login'
     | '/welcome'
     | '/admin/announcements'
     | '/admin/approvals'
@@ -303,6 +313,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/staff-login'
     | '/welcome'
     | '/admin/announcements'
     | '/admin/approvals'
@@ -333,6 +344,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/lecturer'
+    | '/staff-login'
     | '/welcome'
     | '/admin/announcements'
     | '/admin/approvals'
@@ -364,6 +376,7 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
   AuthRoute: typeof AuthRoute
   LecturerRoute: typeof LecturerRouteWithChildren
+  StaffLoginRoute: typeof StaffLoginRoute
   WelcomeRoute: typeof WelcomeRoute
 }
 
@@ -374,6 +387,13 @@ declare module '@tanstack/react-router' {
       path: '/welcome'
       fullPath: '/welcome'
       preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/staff-login': {
+      id: '/staff-login'
+      path: '/staff-login'
+      fullPath: '/staff-login'
+      preLoaderRoute: typeof StaffLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lecturer': {
@@ -644,6 +664,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
   AuthRoute: AuthRoute,
   LecturerRoute: LecturerRouteWithChildren,
+  StaffLoginRoute: StaffLoginRoute,
   WelcomeRoute: WelcomeRoute,
 }
 export const routeTree = rootRouteImport

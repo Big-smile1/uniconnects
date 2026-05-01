@@ -132,6 +132,11 @@ function AuthPage() {
         <p className="mt-6 text-center text-xs text-muted-foreground">
           Lecturer and admin accounts are normally provisioned by the Mountain Top University ICT unit.
         </p>
+        <p className="mt-3 text-center text-xs text-muted-foreground">
+          <Link to="/staff-login" className="font-medium text-foreground/80 underline-offset-2 hover:text-foreground hover:underline">
+            Staff login →
+          </Link>
+        </p>
       </div>
     </div>
   );
