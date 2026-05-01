@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { CheckCircle2, XCircle, Loader2, Download, Search } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/approvals")({
+export const Route = createFileRoute("/admin/approvals")({
   head: () => ({ meta: [{ title: "Approvals — Admin · MTU" }] }),
   component: () => <RequireRole role="admin"><AdminApprovals /></RequireRole>,
 });

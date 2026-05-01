@@ -8,7 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Users, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/app/lecturer/")({
+export const Route = createFileRoute("/lecturer/")({
   head: () => ({ meta: [{ title: "Lecturer dashboard — Mountain Top University" }] }),
   component: () => (
     <RequireRole role="lecturer">
@@ -52,7 +52,7 @@ function LecturerDashboard() {
         subtitle="Manage the courses you teach and upload student results."
         actions={
           <Button asChild>
-            <Link to="/app/lecturer/courses">
+            <Link to="/lecturer/courses">
               Manage my courses <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </Button>
@@ -88,7 +88,7 @@ function LecturerDashboard() {
           <div className="mb-3 flex items-center justify-between">
             <h2 className="font-serif text-lg font-semibold">My courses</h2>
             <Button asChild variant="outline" size="sm">
-              <Link to="/app/lecturer/courses">Pick / release courses</Link>
+              <Link to="/lecturer/courses">Pick / release courses</Link>
             </Button>
           </div>
           {loading ? (
@@ -96,7 +96,7 @@ function LecturerDashboard() {
           ) : myCourses.length === 0 ? (
             <div className="rounded-md border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
               You haven't picked any courses yet.{" "}
-              <Link to="/app/lecturer/courses" className="font-medium text-primary underline-offset-2 hover:underline">
+              <Link to="/lecturer/courses" className="font-medium text-primary underline-offset-2 hover:underline">
                 Pick the classes you teach →
               </Link>
             </div>

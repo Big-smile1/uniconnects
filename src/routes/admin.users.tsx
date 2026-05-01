@@ -19,7 +19,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { createUser, changeUserRole, resetUserPassword } from "@/server/admin.functions";
 import { Loader2, UserPlus, Search, KeyRound, ShieldCheck } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/users")({
+export const Route = createFileRoute("/admin/users")({
   head: () => ({ meta: [{ title: "Users — Admin · MTU" }] }),
   component: () => <RequireRole role="admin"><AdminUsers /></RequireRole>,
 });

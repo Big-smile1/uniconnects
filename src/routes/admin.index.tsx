@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Users, BookOpen, Building2, ClipboardCheck, Bell, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/app/admin/")({
+export const Route = createFileRoute("/admin/")({
   head: () => ({ meta: [{ title: "Admin dashboard — MTU" }] }),
   component: () => <RequireRole role="admin"><AdminDashboard /></RequireRole>,
 });
@@ -31,11 +31,11 @@ function AdminDashboard() {
   }, []);
 
   const tiles = [
-    { label: "Users", value: counts.users, to: "/app/admin/users", icon: Users },
-    { label: "Departments", value: counts.depts, to: "/app/admin/departments", icon: Building2 },
-    { label: "Courses", value: counts.courses, to: "/app/admin/courses", icon: BookOpen },
-    { label: "Pending approvals", value: counts.pending, to: "/app/admin/approvals", icon: ClipboardCheck, highlight: counts.pending > 0 },
-    { label: "Queued emails", value: counts.queued, to: "/app/admin/notifications", icon: Bell, highlight: counts.queued > 0 },
+    { label: "Users", value: counts.users, to: "/admin/users", icon: Users },
+    { label: "Departments", value: counts.depts, to: "/admin/departments", icon: Building2 },
+    { label: "Courses", value: counts.courses, to: "/admin/courses", icon: BookOpen },
+    { label: "Pending approvals", value: counts.pending, to: "/admin/approvals", icon: ClipboardCheck, highlight: counts.pending > 0 },
+    { label: "Queued emails", value: counts.queued, to: "/admin/notifications", icon: Bell, highlight: counts.queued > 0 },
   ];
 
   return (
