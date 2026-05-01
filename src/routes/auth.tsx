@@ -36,7 +36,7 @@ const signupSchema = z
     phone: z.string().trim().max(20).optional().or(z.literal("")),
     matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
     departmentId: z.string().uuid().optional().or(z.literal("")),
-    role: z.enum(["student", "lecturer", "parent", "admin"]),
+    role: z.enum(["student", "parent"]),
     // Primary guardian (required for students)
     parent1Name: z.string().trim().max(120).optional().or(z.literal("")),
     parent1Phone: z.string().trim().max(20).optional().or(z.literal("")),
