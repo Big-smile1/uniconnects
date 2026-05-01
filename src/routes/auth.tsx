@@ -36,7 +36,7 @@ const signupSchema = z
     phone: z.string().trim().max(20).optional().or(z.literal("")),
     matricNumber: z.string().trim().max(40).optional().or(z.literal("")),
     departmentId: z.string().uuid().optional().or(z.literal("")),
-    role: z.enum(["student", "lecturer", "parent", "admin"]),
+    role: z.enum(["student", "parent"]),
     // Primary guardian (required for students)
     parent1Name: z.string().trim().max(120).optional().or(z.literal("")),
     parent1Phone: z.string().trim().max(20).optional().or(z.literal("")),
@@ -50,7 +50,7 @@ const signupSchema = z
   })
   .refine(
     (data) => {
-      if (data.role === "student" || data.role === "lecturer") {
+      if (data.role === "student") {
         return !!data.departmentId && data.departmentId.length > 0;
       }
       return true;
@@ -275,7 +275,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     if (!user) onDone();
   };
 
-  const departmentRequired = form.role === "student" || form.role === "lecturer";
+  const departmentRequired = form.role === "student";
   const submitDisabled = busy || (departmentRequired && (deptLoading || !!deptError || departments.length === 0));
 
   return (
@@ -287,8 +287,6 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
           <SelectContent>
             <SelectItem value="student">Student</SelectItem>
             <SelectItem value="parent">Parent / Guardian</SelectItem>
-            <SelectItem value="lecturer">Lecturer</SelectItem>
-            <SelectItem value="admin">Admin (ICT unit)</SelectItem>
           </SelectContent>
         </Select>
       </div>
