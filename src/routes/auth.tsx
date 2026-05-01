@@ -275,7 +275,7 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
     if (!user) onDone();
   };
 
-  const departmentRequired = form.role === "student" || form.role === "lecturer";
+  const departmentRequired = form.role === "student";
   const submitDisabled = busy || (departmentRequired && (deptLoading || !!deptError || departments.length === 0));
 
   return (
