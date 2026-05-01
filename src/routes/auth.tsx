@@ -287,8 +287,6 @@ function SignUpForm({ onDone }: { onDone: () => void }) {
           <SelectContent>
             <SelectItem value="student">Student</SelectItem>
             <SelectItem value="parent">Parent / Guardian</SelectItem>
-            <SelectItem value="lecturer">Lecturer</SelectItem>
-            <SelectItem value="admin">Admin (ICT unit)</SelectItem>
           </SelectContent>
         </Select>
       </div>
