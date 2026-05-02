@@ -7,7 +7,10 @@ import {
   adminSetRole,
   adminResetPassword,
   adminListUsers,
+  adminInviteStaff,
 } from "./admin.server";
+
+const staffRoleEnum = z.enum(["lecturer", "admin"]);
 
 const roleEnum = z.enum(["student", "lecturer", "admin", "parent"]);
 
