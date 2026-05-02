@@ -7,7 +7,10 @@ import {
   adminSetRole,
   adminResetPassword,
   adminListUsers,
+  adminInviteStaff,
 } from "./admin.server";
+
+const staffRoleEnum = z.enum(["lecturer", "admin"]);
 
 const roleEnum = z.enum(["student", "lecturer", "admin", "parent"]);
 
@@ -56,4 +59,23 @@ export const listAuthUsers = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     await assertCallerIsAdmin(context.userId);
     return { users: await adminListUsers() };
+  });
+
+export const inviteStaff = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) =>
+    z
+      .object({
+        email: z.string().trim().email().max(255),
+        fullName: z.string().trim().min(1).max(120),
+        role: staffRoleEnum,
+        departmentId: z.string().uuid().nullable().optional(),
+        phone: z.string().trim().max(20).nullable().optional(),
+        redirectTo: z.string().url().nullable().optional(),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertCallerIsAdmin(context.userId);
+    return adminInviteStaff(data);
   });

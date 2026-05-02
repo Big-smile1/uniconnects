@@ -63,6 +63,28 @@ export async function adminResetPassword(userId: string, newPassword: string) {
   return { ok: true };
 }
 
+export async function adminInviteStaff(opts: {
+  email: string;
+  fullName: string;
+  role: "lecturer" | "admin";
+  departmentId?: string | null;
+  phone?: string | null;
+  redirectTo?: string | null;
+}) {
+  const sb = admin();
+  const { data, error } = await sb.auth.admin.inviteUserByEmail(opts.email, {
+    data: {
+      full_name: opts.fullName,
+      role: opts.role,
+      department_id: opts.departmentId ?? "",
+      phone: opts.phone ?? "",
+    },
+    redirectTo: opts.redirectTo ?? undefined,
+  });
+  if (error) throw new Response(error.message, { status: 400 });
+  return { id: data.user?.id ?? null };
+}
+
 export async function adminListUsers() {
   const sb = admin();
   const { data, error } = await sb.auth.admin.listUsers({ perPage: 200 });
