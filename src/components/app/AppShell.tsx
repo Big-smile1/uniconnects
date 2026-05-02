@@ -50,6 +50,7 @@ const navByRole: Record<AppRole, NavItem[]> = {
   admin: [
     { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
     { to: "/admin/users", label: "Users", icon: Users },
+    { to: "/admin/staff", label: "Provision staff", icon: ShieldCheck },
     { to: "/admin/departments", label: "Departments", icon: Building2 },
     { to: "/admin/courses", label: "Courses", icon: BookOpen },
     { to: "/admin/enrollments", label: "Enrollments", icon: ClipboardList },

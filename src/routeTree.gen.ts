@@ -25,6 +25,7 @@ import { Route as LecturerAnnouncementsRouteImport } from './routes/lecturer.ann
 import { Route as AppProfileRouteImport } from './routes/app.profile'
 import { Route as AppAnnouncementsRouteImport } from './routes/app.announcements'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as AdminStaffRouteImport } from './routes/admin.staff'
 import { Route as AdminNotificationsRouteImport } from './routes/admin.notifications'
 import { Route as AdminEnrollmentsRouteImport } from './routes/admin.enrollments'
 import { Route as AdminDepartmentsRouteImport } from './routes/admin.departments'
@@ -119,6 +120,11 @@ const AdminUsersRoute = AdminUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminStaffRoute = AdminStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminNotificationsRoute = AdminNotificationsRouteImport.update({
   id: '/notifications',
   path: '/notifications',
@@ -200,6 +206,7 @@ export interface FileRoutesByFullPath {
   '/admin/departments': typeof AdminDepartmentsRoute
   '/admin/enrollments': typeof AdminEnrollmentsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/admin/users': typeof AdminUsersRoute
   '/app/announcements': typeof AppAnnouncementsRoute
   '/app/profile': typeof AppProfileRoute
@@ -228,6 +235,7 @@ export interface FileRoutesByTo {
   '/admin/departments': typeof AdminDepartmentsRoute
   '/admin/enrollments': typeof AdminEnrollmentsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/admin/users': typeof AdminUsersRoute
   '/app/announcements': typeof AppAnnouncementsRoute
   '/app/profile': typeof AppProfileRoute
@@ -260,6 +268,7 @@ export interface FileRoutesById {
   '/admin/departments': typeof AdminDepartmentsRoute
   '/admin/enrollments': typeof AdminEnrollmentsRoute
   '/admin/notifications': typeof AdminNotificationsRoute
+  '/admin/staff': typeof AdminStaffRoute
   '/admin/users': typeof AdminUsersRoute
   '/app/announcements': typeof AppAnnouncementsRoute
   '/app/profile': typeof AppProfileRoute
@@ -293,6 +302,7 @@ export interface FileRouteTypes {
     | '/admin/departments'
     | '/admin/enrollments'
     | '/admin/notifications'
+    | '/admin/staff'
     | '/admin/users'
     | '/app/announcements'
     | '/app/profile'
@@ -321,6 +331,7 @@ export interface FileRouteTypes {
     | '/admin/departments'
     | '/admin/enrollments'
     | '/admin/notifications'
+    | '/admin/staff'
     | '/admin/users'
     | '/app/announcements'
     | '/app/profile'
@@ -352,6 +363,7 @@ export interface FileRouteTypes {
     | '/admin/departments'
     | '/admin/enrollments'
     | '/admin/notifications'
+    | '/admin/staff'
     | '/admin/users'
     | '/app/announcements'
     | '/app/profile'
@@ -494,6 +506,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminUsersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/staff': {
+      id: '/admin/staff'
+      path: '/staff'
+      fullPath: '/admin/staff'
+      preLoaderRoute: typeof AdminStaffRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/notifications': {
       id: '/admin/notifications'
       path: '/notifications'
@@ -595,6 +614,7 @@ interface AdminRouteChildren {
   AdminDepartmentsRoute: typeof AdminDepartmentsRoute
   AdminEnrollmentsRoute: typeof AdminEnrollmentsRoute
   AdminNotificationsRoute: typeof AdminNotificationsRoute
+  AdminStaffRoute: typeof AdminStaffRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -606,6 +626,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminDepartmentsRoute: AdminDepartmentsRoute,
   AdminEnrollmentsRoute: AdminEnrollmentsRoute,
   AdminNotificationsRoute: AdminNotificationsRoute,
+  AdminStaffRoute: AdminStaffRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
