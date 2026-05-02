@@ -21,6 +21,7 @@ import {
   ClipboardList,
   PenSquare,
   Settings,
+  ShieldCheck,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
