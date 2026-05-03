@@ -46,6 +46,7 @@ function AdminUsers() {
   const changeRoleFn = useServerFn(changeUserRole);
   const resetPwdFn = useServerFn(resetUserPassword);
   const deleteUserFn = useServerFn(deleteUser);
+  const listAuthUsersFn = useServerFn(listAuthUsers);
   const { user } = useAuth();
 
   const [rows, setRows] = useState<Row[]>([]);
