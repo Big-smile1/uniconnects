@@ -140,6 +140,7 @@ function AdminUsers() {
               <thead className="text-xs uppercase tracking-wider text-muted-foreground">
                 <tr>
                   <th className="px-5 py-3 text-left">Name</th>
+                  <th className="px-2 py-3 text-left">Email</th>
                   <th className="px-2 py-3 text-left">Matric / ID</th>
                   <th className="px-2 py-3 text-left">Department</th>
                   <th className="px-2 py-3 text-left">Role</th>
