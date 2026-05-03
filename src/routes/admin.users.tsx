@@ -151,6 +151,7 @@ function AdminUsers() {
                 {filtered.map((r) => (
                   <tr key={r.id} className="border-t border-border">
                     <td className="px-5 py-2">{r.full_name}</td>
+                    <td className="px-2 py-2 text-xs">{r.email ?? "—"}</td>
                     <td className="px-2 py-2 font-mono text-xs">{r.matric_number ?? "—"}</td>
                     <td className="px-2 py-2 text-xs text-muted-foreground">{depts.find((d) => d.id === r.department_id)?.code ?? "—"}</td>
                     <td className="px-2 py-2">
