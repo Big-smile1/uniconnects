@@ -175,7 +175,7 @@ function AdminUsers() {
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={5} className="p-10 text-center text-muted-foreground">No users found.</td></tr>
+                  <tr><td colSpan={6} className="p-10 text-center text-muted-foreground">No users found.</td></tr>
                 )}
               </tbody>
             </table>
