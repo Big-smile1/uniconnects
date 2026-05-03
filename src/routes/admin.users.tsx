@@ -44,6 +44,8 @@ function AdminUsers() {
   const createUserFn = useServerFn(createUser);
   const changeRoleFn = useServerFn(changeUserRole);
   const resetPwdFn = useServerFn(resetUserPassword);
+  const deleteUserFn = useServerFn(deleteUser);
+  const { user } = useAuth();
 
   const [rows, setRows] = useState<Row[]>([]);
   const [depts, setDepts] = useState<{ id: string; code: string; name: string }[]>([]);
@@ -52,6 +54,8 @@ function AdminUsers() {
   const [loading, setLoading] = useState(true);
   const [createOpen, setCreateOpen] = useState(false);
   const [resetOpen, setResetOpen] = useState<Row | null>(null);
+  const [deleteRow, setDeleteRow] = useState<Row | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const load = async () => {
     setLoading(true);
