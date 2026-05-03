@@ -83,7 +83,7 @@ function AdminUsers() {
     return rows.filter((r) => {
       if (filterRole !== "all" && r.role !== filterRole) return false;
       if (!n) return true;
-      return r.full_name.toLowerCase().includes(n) || (r.matric_number ?? "").toLowerCase().includes(n);
+      return r.full_name.toLowerCase().includes(n) || (r.matric_number ?? "").toLowerCase().includes(n) || (r.email ?? "").toLowerCase().includes(n);
     });
   }, [rows, q, filterRole]);
 
