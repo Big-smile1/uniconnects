@@ -14,10 +14,15 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { createUser, changeUserRole, resetUserPassword } from "@/server/admin.functions";
-import { Loader2, UserPlus, Search, KeyRound, ShieldCheck } from "lucide-react";
+import { createUser, changeUserRole, resetUserPassword, deleteUser } from "@/server/admin.functions";
+import { useAuth } from "@/lib/auth";
+import { Loader2, UserPlus, Search, KeyRound, ShieldCheck, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/users")({
   head: () => ({ meta: [{ title: "Users — Admin · MTU" }] }),
@@ -39,6 +44,8 @@ function AdminUsers() {
   const createUserFn = useServerFn(createUser);
   const changeRoleFn = useServerFn(changeUserRole);
   const resetPwdFn = useServerFn(resetUserPassword);
+  const deleteUserFn = useServerFn(deleteUser);
+  const { user } = useAuth();
 
   const [rows, setRows] = useState<Row[]>([]);
   const [depts, setDepts] = useState<{ id: string; code: string; name: string }[]>([]);
@@ -47,6 +54,8 @@ function AdminUsers() {
   const [loading, setLoading] = useState(true);
   const [createOpen, setCreateOpen] = useState(false);
   const [resetOpen, setResetOpen] = useState<Row | null>(null);
+  const [deleteRow, setDeleteRow] = useState<Row | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -150,6 +159,11 @@ function AdminUsers() {
                       <Button variant="ghost" size="sm" onClick={() => setResetOpen(r)}>
                         <KeyRound className="h-4 w-4" /> Reset password
                       </Button>
+                      {user?.id !== r.id && (
+                        <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => setDeleteRow(r)}>
+                          <Trash2 className="h-4 w-4" /> Delete
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -192,6 +206,42 @@ function AdminUsers() {
           }
         }}
       />
+
+      <AlertDialog open={!!deleteRow} onOpenChange={(v) => !v && !deleting && setDeleteRow(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete account?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Permanently delete <strong>{deleteRow?.full_name}</strong>. This cannot be undone.
+              The user will lose access immediately. Historical records (results, announcements) are kept.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={deleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={async (e) => {
+                e.preventDefault();
+                if (!deleteRow) return;
+                setDeleting(true);
+                try {
+                  await deleteUserFn({ data: { userId: deleteRow.id } });
+                  toast.success("Account deleted");
+                  setDeleteRow(null);
+                  void load();
+                } catch (err: any) {
+                  toast.error(err?.message ?? "Failed to delete account");
+                } finally {
+                  setDeleting(false);
+                }
+              }}
+            >
+              {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />} Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

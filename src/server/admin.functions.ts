@@ -8,6 +8,7 @@ import {
   adminResetPassword,
   adminListUsers,
   adminInviteStaff,
+  adminDeleteUser,
 } from "./admin.server";
 
 const staffRoleEnum = z.enum(["lecturer", "admin"]);
@@ -78,4 +79,14 @@ export const inviteStaff = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertCallerIsAdmin(context.userId);
     return adminInviteStaff(data);
+  });
+
+export const deleteUser = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) =>
+    z.object({ userId: z.string().uuid() }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertCallerIsAdmin(context.userId);
+    return adminDeleteUser(data.userId, context.userId);
   });
