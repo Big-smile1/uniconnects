@@ -14,10 +14,15 @@ import {
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { createUser, changeUserRole, resetUserPassword } from "@/server/admin.functions";
-import { Loader2, UserPlus, Search, KeyRound, ShieldCheck } from "lucide-react";
+import { createUser, changeUserRole, resetUserPassword, deleteUser } from "@/server/admin.functions";
+import { useAuth } from "@/lib/auth";
+import { Loader2, UserPlus, Search, KeyRound, ShieldCheck, Trash2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/users")({
   head: () => ({ meta: [{ title: "Users — Admin · MTU" }] }),
