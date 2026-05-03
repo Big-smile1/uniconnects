@@ -61,14 +61,17 @@ function AdminUsers() {
 
   const load = async () => {
     setLoading(true);
-    const [{ data: profs }, { data: roles }, { data: ds }] = await Promise.all([
+    const [{ data: profs }, { data: roles }, { data: ds }, authRes] = await Promise.all([
       supabase.from("profiles").select("id, full_name, matric_number, level, department_id"),
       supabase.from("user_roles").select("user_id, role"),
       supabase.from("departments").select("id, code, name").order("name"),
+      listAuthUsersFn().catch(() => ({ users: [] as { id: string; email: string | null }[] })),
     ]);
     const roleMap = new Map<string, string>();
     (roles ?? []).forEach((r: any) => roleMap.set(r.user_id, r.role));
-    setRows((profs ?? []).map((p: any) => ({ ...p, role: roleMap.get(p.id) ?? null })));
+    const emailMap = new Map<string, string | null>();
+    (authRes?.users ?? []).forEach((u: any) => emailMap.set(u.id, u.email ?? null));
+    setRows((profs ?? []).map((p: any) => ({ ...p, role: roleMap.get(p.id) ?? null, email: emailMap.get(p.id) ?? null })));
     setDepts(ds ?? []);
     setLoading(false);
   };
