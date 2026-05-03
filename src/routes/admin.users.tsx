@@ -36,6 +36,7 @@ type Row = {
   level: number | null;
   department_id: string | null;
   role: string | null;
+  email: string | null;
 };
 
 const ROLES = ["student", "lecturer", "admin", "parent"] as const;
