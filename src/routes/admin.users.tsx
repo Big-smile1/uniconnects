@@ -159,6 +159,11 @@ function AdminUsers() {
                       <Button variant="ghost" size="sm" onClick={() => setResetOpen(r)}>
                         <KeyRound className="h-4 w-4" /> Reset password
                       </Button>
+                      {user?.id !== r.id && (
+                        <Button variant="ghost" size="sm" className="text-destructive hover:text-destructive" onClick={() => setDeleteRow(r)}>
+                          <Trash2 className="h-4 w-4" /> Delete
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 ))}
