@@ -80,3 +80,13 @@ export const inviteStaff = createServerFn({ method: "POST" })
     await assertCallerIsAdmin(context.userId);
     return adminInviteStaff(data);
   });
+
+export const deleteUser = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) =>
+    z.object({ userId: z.string().uuid() }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertCallerIsAdmin(context.userId);
+    return adminDeleteUser(data.userId, context.userId);
+  });
