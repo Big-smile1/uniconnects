@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { createUser, changeUserRole, resetUserPassword, deleteUser } from "@/server/admin.functions";
+import { createUser, changeUserRole, resetUserPassword, deleteUser, listAuthUsers } from "@/server/admin.functions";
 import { useAuth } from "@/lib/auth";
 import { Loader2, UserPlus, Search, KeyRound, ShieldCheck, Trash2 } from "lucide-react";
 
@@ -36,6 +36,7 @@ type Row = {
   level: number | null;
   department_id: string | null;
   role: string | null;
+  email: string | null;
 };
 
 const ROLES = ["student", "lecturer", "admin", "parent"] as const;
@@ -45,6 +46,7 @@ function AdminUsers() {
   const changeRoleFn = useServerFn(changeUserRole);
   const resetPwdFn = useServerFn(resetUserPassword);
   const deleteUserFn = useServerFn(deleteUser);
+  const listAuthUsersFn = useServerFn(listAuthUsers);
   const { user } = useAuth();
 
   const [rows, setRows] = useState<Row[]>([]);
@@ -59,14 +61,17 @@ function AdminUsers() {
 
   const load = async () => {
     setLoading(true);
-    const [{ data: profs }, { data: roles }, { data: ds }] = await Promise.all([
+    const [{ data: profs }, { data: roles }, { data: ds }, authRes] = await Promise.all([
       supabase.from("profiles").select("id, full_name, matric_number, level, department_id"),
       supabase.from("user_roles").select("user_id, role"),
       supabase.from("departments").select("id, code, name").order("name"),
+      listAuthUsersFn().catch(() => ({ users: [] as { id: string; email: string | null }[] })),
     ]);
     const roleMap = new Map<string, string>();
     (roles ?? []).forEach((r: any) => roleMap.set(r.user_id, r.role));
-    setRows((profs ?? []).map((p: any) => ({ ...p, role: roleMap.get(p.id) ?? null })));
+    const emailMap = new Map<string, string | null>();
+    (authRes?.users ?? []).forEach((u: any) => emailMap.set(u.id, u.email ?? null));
+    setRows((profs ?? []).map((p: any) => ({ ...p, role: roleMap.get(p.id) ?? null, email: emailMap.get(p.id) ?? null })));
     setDepts(ds ?? []);
     setLoading(false);
   };
@@ -78,7 +83,7 @@ function AdminUsers() {
     return rows.filter((r) => {
       if (filterRole !== "all" && r.role !== filterRole) return false;
       if (!n) return true;
-      return r.full_name.toLowerCase().includes(n) || (r.matric_number ?? "").toLowerCase().includes(n);
+      return r.full_name.toLowerCase().includes(n) || (r.matric_number ?? "").toLowerCase().includes(n) || (r.email ?? "").toLowerCase().includes(n);
     });
   }, [rows, q, filterRole]);
 
@@ -109,7 +114,7 @@ function AdminUsers() {
             <Label className="text-xs">Search</Label>
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input className="pl-8" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name or matric…" />
+              <Input className="pl-8" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, matric or email…" />
             </div>
           </div>
           <div className="grid gap-1.5">
@@ -135,6 +140,7 @@ function AdminUsers() {
               <thead className="text-xs uppercase tracking-wider text-muted-foreground">
                 <tr>
                   <th className="px-5 py-3 text-left">Name</th>
+                  <th className="px-2 py-3 text-left">Email</th>
                   <th className="px-2 py-3 text-left">Matric / ID</th>
                   <th className="px-2 py-3 text-left">Department</th>
                   <th className="px-2 py-3 text-left">Role</th>
@@ -145,6 +151,7 @@ function AdminUsers() {
                 {filtered.map((r) => (
                   <tr key={r.id} className="border-t border-border">
                     <td className="px-5 py-2">{r.full_name}</td>
+                    <td className="px-2 py-2 text-xs">{r.email ?? "—"}</td>
                     <td className="px-2 py-2 font-mono text-xs">{r.matric_number ?? "—"}</td>
                     <td className="px-2 py-2 text-xs text-muted-foreground">{depts.find((d) => d.id === r.department_id)?.code ?? "—"}</td>
                     <td className="px-2 py-2">
@@ -168,7 +175,7 @@ function AdminUsers() {
                   </tr>
                 ))}
                 {filtered.length === 0 && (
-                  <tr><td colSpan={5} className="p-10 text-center text-muted-foreground">No users found.</td></tr>
+                  <tr><td colSpan={6} className="p-10 text-center text-muted-foreground">No users found.</td></tr>
                 )}
               </tbody>
             </table>
