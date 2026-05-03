@@ -114,7 +114,7 @@ function AdminUsers() {
             <Label className="text-xs">Search</Label>
             <div className="relative">
               <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input className="pl-8" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name or matric…" />
+              <Input className="pl-8" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Name, matric or email…" />
             </div>
           </div>
           <div className="grid gap-1.5">
