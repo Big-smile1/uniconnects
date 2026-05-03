@@ -8,6 +8,7 @@ import {
   adminResetPassword,
   adminListUsers,
   adminInviteStaff,
+  adminDeleteUser,
 } from "./admin.server";
 
 const staffRoleEnum = z.enum(["lecturer", "admin"]);
