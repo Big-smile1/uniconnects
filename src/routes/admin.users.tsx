@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
-import { createUser, changeUserRole, resetUserPassword, deleteUser } from "@/server/admin.functions";
+import { createUser, changeUserRole, resetUserPassword, deleteUser, listAuthUsers } from "@/server/admin.functions";
 import { useAuth } from "@/lib/auth";
 import { Loader2, UserPlus, Search, KeyRound, ShieldCheck, Trash2 } from "lucide-react";
 
