@@ -85,6 +85,18 @@ export async function adminInviteStaff(opts: {
   return { id: data.user?.id ?? null };
 }
 
+export async function adminDeleteUser(userId: string, callerId: string) {
+  if (userId === callerId) {
+    throw new Response("You cannot delete your own account.", { status: 400 });
+  }
+  const sb = admin();
+  // Remove profile row explicitly (no FK to auth.users)
+  await sb.from("profiles").delete().eq("id", userId);
+  const { error } = await sb.auth.admin.deleteUser(userId);
+  if (error) throw new Response(error.message, { status: 400 });
+  return { ok: true };
+}
+
 export async function adminListUsers() {
   const sb = admin();
   const { data, error } = await sb.auth.admin.listUsers({ perPage: 200 });
