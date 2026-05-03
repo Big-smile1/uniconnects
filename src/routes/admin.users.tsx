@@ -206,6 +206,42 @@ function AdminUsers() {
           }
         }}
       />
+
+      <AlertDialog open={!!deleteRow} onOpenChange={(v) => !v && !deleting && setDeleteRow(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete account?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Permanently delete <strong>{deleteRow?.full_name}</strong>. This cannot be undone.
+              The user will lose access immediately. Historical records (results, announcements) are kept.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              disabled={deleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={async (e) => {
+                e.preventDefault();
+                if (!deleteRow) return;
+                setDeleting(true);
+                try {
+                  await deleteUserFn({ data: { userId: deleteRow.id } });
+                  toast.success("Account deleted");
+                  setDeleteRow(null);
+                  void load();
+                } catch (err: any) {
+                  toast.error(err?.message ?? "Failed to delete account");
+                } finally {
+                  setDeleting(false);
+                }
+              }}
+            >
+              {deleting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />} Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }
